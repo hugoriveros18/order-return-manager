@@ -6,7 +6,12 @@ import { money, dateOnly } from '@/lib/money';
 export function ProductRow({ item, children }: { item: ItemView; children?: React.ReactNode }) {
   return (
     <div className="product-row">
-      <Image src={item.imagePath} alt={item.imageAlt} width={88} height={88} />
+      <Image
+        src={item.imagePath}
+        alt={`${item.name} product illustration`}
+        width={88}
+        height={88}
+      />
       <div className="product-info">
         <h3>{item.name}</h3>
         <p className="muted small">

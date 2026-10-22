@@ -111,6 +111,12 @@ See [validation evidence](specs/001-manage-order-returns/validation.md),
 
 ## Development workflow
 
+See the [practical SDD runbook](docs/spec-driven-development.md) for request examples,
+phase/command mapping, feature-package structure and actual repository helper scripts.
+The current interface follow-up is [002-refine-interface](specs/002-refine-interface/spec.md);
+its [tasks](specs/002-refine-interface/tasks.md) are implemented and locally verified.
+See its [validation record](specs/002-refine-interface/validation.md) for evidence and limits.
+
 [AGENTS.md](AGENTS.md) contains repository instructions for coding agents, including the
 SDD workflow, domain invariants and scoped verification. For new features, update or
 create the relevant specification, plan and tasks before implementation; use the local
@@ -168,3 +174,19 @@ for details or expand the quantity example. Connector labels have dedicated spac
 narrow screens use a vertical main route with explicitly labeled pending-only alternatives.
 The guide preserves the selected role/profile, supports keyboard and light/dark appearance,
 and does not create or update return requests.
+
+## Architecture learning guide
+
+Open [the interactive architecture guide](docs/architecture-guide/index.html) in a browser.
+It explains Next.js frontend/backend boundaries, Vercel versus Neon, request data flow,
+return states/quantities and anonymous environment isolation. It is a local learning
+resource under docs/, not an application route, and never calls application APIs.
+Its interactions use an illustrative in-memory model; they cannot modify a real demo.
+
+## Interface refinement
+
+The shared header identifies the app with one compact Demo label. Routine screens focus
+on orders and next steps; approval and receipt details retain contextual consequences.
+Customer/admin request evidence shares semantic reason, rejection, approved and received
+surfaces in both themes. Browser tabs use a parcel/return favicon with SVG and ICO formats.
+These changes are locally verified under feature 002; production deployment is separate.

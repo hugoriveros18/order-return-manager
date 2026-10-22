@@ -1,3 +1,4 @@
+import { Brand } from '@/components/brand';
 import { ToastViewport } from '@/components/toast';
 import { Suspense } from 'react';
 import { SectionSkeleton } from '@/components/section-skeleton';
@@ -6,7 +7,8 @@ import { plex } from './fonts';
 import './globals.css';
 export const metadata: Metadata = {
   title: 'Order Returns Manager',
-  description: 'An independent, fictitious product-return demonstration.',
+  description:
+    'Explore order details, manage returns and follow each request in an interactive demo.',
 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,9 +26,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <Suspense
           fallback={
-            <main id="main" className="page-content">
-              <SectionSkeleton />
-            </main>
+            <>
+              <header className="app-header">
+                <Brand />
+              </header>
+              <main id="main" className="page-content">
+                <SectionSkeleton />
+              </main>
+            </>
           }
         >
           {children}

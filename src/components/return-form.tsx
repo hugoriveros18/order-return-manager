@@ -87,7 +87,6 @@ export function ReturnForm() {
               Back to orders
             </Link>
           </div>
-          <p className="footnote">No monetary refund or physical pickup has been arranged.</p>
         </section>
       </div>
     );
@@ -162,10 +161,7 @@ export function ReturnForm() {
                 <dd>{items.reduce((n, l) => n + l.quantity, 0)}</dd>
               </div>
             </dl>
-            <p>
-              The next step is an administrator review. Approval does not issue a refund or confirm
-              physical receipt.
-            </p>
+            <p>An administrator will review your request.</p>
             <AsyncButton busy={mutation.busy} busyLabel="Creating request…" onClick={submit}>
               Create request
             </AsyncButton>
@@ -221,7 +217,12 @@ export function ReturnForm() {
                   className={'selection-product ' + (quantity ? 'selected' : '')}
                   key={i.orderItemId}
                 >
-                  <Image src={i.imagePath} alt={i.imageAlt} width={76} height={76} />
+                  <Image
+                    src={i.imagePath}
+                    alt={`${i.name} product illustration`}
+                    width={76}
+                    height={76}
+                  />
                   <div>
                     <h3>{i.name}</h3>
                     <p>
@@ -321,10 +322,6 @@ export function ReturnForm() {
           </footer>
         </form>
       )}
-      <p className="footnote">
-        <Icon name="info" />
-        Demonstration only. No real pickup or refund will be arranged.
-      </p>
     </div>
   );
 }

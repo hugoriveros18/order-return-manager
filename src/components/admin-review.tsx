@@ -8,6 +8,7 @@ import { useDemoData, ErrorNotice, renewDemoActivity } from './demo-context';
 import { useDemoMutation } from './use-demo-mutation';
 import { ReturnStatus, statusLabels } from './return-status';
 import { ReturnHistory } from './return-history';
+import { ReturnInstructions } from './return-instructions';
 import { ProductRow } from './order-sheet';
 import { Modal } from './modal';
 import { dateTime } from '@/lib/money';
@@ -197,19 +198,26 @@ export function AdminReview() {
                   <ProductRow item={i} key={i.orderItemId} />
                 ))}
               </div>
-              <div className="reason-summary">
-                <h3>Customer reason</h3>
-                <p>{selected.reason}</p>
-              </div>
-              {selected.rejectionReason && (
+              <div className="request-evidence">
                 <div className="reason-summary">
-                  <h3>Rejection reason</h3>
-                  <p>{selected.rejectionReason}</p>
+                  <h3>Customer reason</h3>
+                  <p>{selected.reason}</p>
                 </div>
-              )}
+                {selected.rejectionReason && (
+                  <div className="alert error">
+                    <h3>Rejection reason</h3>
+                    <p>{selected.rejectionReason}</p>
+                  </div>
+                )}
+                <ReturnInstructions status={selected.status} view="admin" />
+              </div>
               <div className="decision-bar">
                 {selected.status === 'PENDING' && (
                   <>
+                    <p className="approval-note">
+                      Approval updates the request status. It does not issue a refund or confirm
+                      physical receipt.
+                    </p>
                     <AsyncButton
                       busy={mutation.busy && action === 'approve'}
                       disabled={mutation.busy}
@@ -239,10 +247,6 @@ export function AdminReview() {
                 )}
               </div>
               <div className="request-body">
-                <p className="footnote">
-                  Approval records a demonstration decision. It does not issue a refund or confirm
-                  physical receipt.
-                </p>
                 <ReturnHistory events={selected.history} />
               </div>
             </section>

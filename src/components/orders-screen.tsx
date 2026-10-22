@@ -48,7 +48,9 @@ export function OrdersScreen() {
       {!orders.length ? (
         <div className="empty">
           <h2>No orders available</h2>
-          <p>This fictional profile has no orders. Reset the demo to restore its initial data.</p>
+          <p>
+            No orders are available for this customer. Reset the demo to restore the initial orders.
+          </p>
           <Link
             className="button secondary"
             href={`/demo/reset?view=customer&customer=${p.customerId}`}
@@ -118,7 +120,7 @@ export function OrdersScreen() {
             )}
             <p className="footnote">
               <Icon name="info" />
-              Original purchase prices in USD. All products and orders are fictional.
+              Original purchase prices in USD.
             </p>
           </div>
         </div>

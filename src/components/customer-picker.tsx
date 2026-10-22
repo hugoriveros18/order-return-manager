@@ -71,7 +71,7 @@ export function CustomerPicker({
             .join('')}
         </span>
         <span>
-          <small>Fictional customer</small>
+          <small>Customer</small>
           <strong>
             {selected?.displayName || (
               <span className="picker-placeholder" aria-hidden="true">
@@ -84,7 +84,7 @@ export function CustomerPicker({
         <Icon name="down" />
       </button>
       {open && (
-        <div id={id} className="customer-options" role="listbox" aria-label="Fictional customer">
+        <div id={id} className="customer-options" role="listbox" aria-label="Customer">
           {customers.map((c) => (
             <button
               key={c.id}
@@ -103,10 +103,7 @@ export function CustomerPicker({
                   .map((s) => s[0])
                   .join('')}
               </span>
-              <span>
-                {c.displayName}
-                <small>Demo profile</small>
-              </span>
+              <span>{c.displayName}</span>
               {c.id === value && <Icon name="check" />}
             </button>
           ))}

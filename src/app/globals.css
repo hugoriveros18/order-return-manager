@@ -442,22 +442,9 @@ h1:focus,
   width: 17px;
   height: 17px;
 }
-.demo-notice {
-  display: flex;
-  gap: 9px;
-  align-items: center;
-  background: var(--soft);
-  color: var(--primary);
-  padding: 9px 32px;
-  font-size: 12px;
-}
-.demo-notice svg {
-  width: 15px;
-  height: 15px;
-}
 .app-frame {
   display: flex;
-  min-height: calc(100dvh - 127px);
+  min-height: calc(100dvh - 88px);
 }
 .rail {
   flex: 0 0 218px;
@@ -499,11 +486,6 @@ h1:focus,
 }
 .rail .settings-link {
   margin-top: auto;
-}
-.rail-note {
-  font-size: 11px;
-  color: var(--muted);
-  padding: 8px 14px;
 }
 .nav-count {
   margin-left: auto;
@@ -1278,9 +1260,6 @@ input[type='number'] {
 .request-body {
   padding: 0 26px 26px;
 }
-.request-body > .footnote {
-  margin: 0;
-}
 .request-body h2 {
   font-size: 18px;
 }
@@ -1653,12 +1632,6 @@ input[type='number'] {
   line-height: 1.85;
   color: var(--muted);
 }
-.landing-footer {
-  font-size: 12px;
-  color: var(--muted);
-  text-align: center;
-  margin-top: 40px;
-}
 .load-more {
   width: 100%;
 }
@@ -1749,8 +1722,7 @@ input[type='number'] {
     padding: 24px 12px;
   }
   .rail .nav-label,
-  .rail > a > span,
-  .rail-note {
+  .rail > a > span {
     display: none;
   }
   .rail > a {
@@ -1888,15 +1860,6 @@ input[type='number'] {
   .customer-options button {
     font-size: 14px;
     min-height: 58px;
-  }
-  .demo-notice {
-    font-size: 11px;
-    padding: 10px 20px;
-    align-items: flex-start;
-    line-height: 1.7;
-  }
-  .demo-notice svg {
-    margin-top: 2px;
   }
   .app-frame {
     display: block;
@@ -2317,9 +2280,6 @@ input[type='number'] {
   .request-body {
     padding: 0 20px 25px;
   }
-  .request-body .footnote {
-    font-size: 12px;
-  }
   .timeline li {
     font-size: 13px;
   }
@@ -2451,12 +2411,6 @@ input[type='number'] {
   }
   .landing-feature p {
     font-size: 14px;
-  }
-  .landing-footer {
-    font-size: 12px;
-    text-align: left;
-    line-height: 1.9;
-    margin-top: 32px;
   }
   .measure {
     max-width: none;
@@ -3457,5 +3411,65 @@ button.guide-state[aria-pressed='true'] {
   }
   .guide-quantity-help summary {
     font-size: 13px;
+  }
+}
+
+/* Compact identity and shared request evidence semantics. */
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.demo-label {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  color: var(--primary);
+  border-radius: 5px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+}
+.request-evidence {
+  padding: 0 26px 24px;
+}
+.request-evidence > .reason-summary {
+  margin: 0 0 20px;
+}
+.request-evidence > .return-instructions {
+  margin-top: 20px;
+}
+.request-evidence > .alert {
+  margin: 20px 0 0;
+}
+.request-evidence .alert h3,
+.customer-return-detail .alert h3 {
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+.request-evidence .alert p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.approval-note {
+  flex-basis: 100%;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+@media (max-width: 650px) {
+  .brand-title {
+    gap: 6px;
+  }
+  .demo-label {
+    font-size: 9px;
+    padding: 1px 5px;
+  }
+  .request-evidence {
+    padding-inline: 20px;
   }
 }

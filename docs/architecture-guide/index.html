@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Inside Order Returns Manager</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="guide.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="topbar">
+      <a class="wordmark" href="#overview"
+        ><svg viewBox="0 0 32 32" aria-hidden="true">
+          <path
+            d="m7 9 9-5 9 5v11l-9 5-9-5V9Zm0 0 9 5 9-5M16 14v11M26 23a7 7 0 0 1-10 6m0 0v-5m0 5h5"
+          /></svg
+        ><span>Order Returns Manager<small>Architecture field guide</small></span></a
+      ><span class="edition">Learning edition · October 2026</span>
+    </header>
+    <section class="hero">
+      <div>
+        <span class="eyebrow">From a click to a committed return</span>
+        <h1>One application.<br />A connected system.</h1>
+        <p>
+          Explore what runs in your browser, what Next.js does on the server and why your data lives
+          in Neon. Then walk through a return, one decision at a time.
+        </p>
+      </div>
+      <aside>
+        <span class="hero-number">01 / 05</span
+        ><strong>Understand the system<br />by moving through it.</strong>
+        <p>
+          Choose a layer, advance a request, and try the return lifecycle. All examples on this page
+          stay in memory and call no application APIs.
+        </p>
+      </aside>
+    </section>
+    <nav class="chapters" aria-label="Guide chapters">
+      <a href="#overview" aria-current="location">01 Architecture</a
+      ><a href="#request">02 A request</a><a href="#lifecycle">03 Return lifecycle</a
+      ><a href="#isolation">04 Demo environments</a><a href="#toolbox">05 Technologies &amp; SDD</a>
+    </nav>
+    <main id="content">
+      <section id="overview" class="chapter">
+        <div class="section-heading">
+          <span class="eyebrow">01 · The architecture</span>
+          <h2>A single codebase spans two execution environments.</h2>
+          <p>
+            The frontend and backend belong to the same Next.js project. They still execute in
+            different places: browser JavaScript handles interaction; server-side Route Handlers
+            execute trusted operations.
+          </p>
+        </div>
+        <div class="architecture">
+          <div class="browser-zone zone">
+            <span class="zone-label">Your device</span
+            ><button class="layer active" data-layer="browser" aria-pressed="true">
+              <span class="node-num">01</span><strong>Browser</strong
+              ><small>React interface · customer or admin</small>
+            </button>
+            <div class="connector">HTTPS request <span aria-hidden="true">→</span></div>
+          </div>
+          <div class="vercel-zone zone">
+            <span class="zone-label">Vercel · Next.js deployment</span
+            ><button class="layer" data-layer="next" aria-pressed="false">
+              <span class="node-num">02</span><strong>Next.js + Node.js</strong
+              ><small>Pages · /api Route Handlers</small>
+            </button>
+            <div class="connector">Calls application modules <span aria-hidden="true">↓</span></div>
+            <button class="layer" data-layer="domain" aria-pressed="false">
+              <span class="node-num">03</span><strong>Domain + data access</strong
+              ><small>Zod · business rules · Prisma + pg</small>
+            </button>
+          </div>
+          <div class="neon-zone zone">
+            <span class="zone-label">Neon · managed database</span>
+            <div class="connector">
+              Encrypted PostgreSQL connection <span aria-hidden="true">→</span>
+            </div>
+            <button class="layer" data-layer="neon" aria-pressed="false">
+              <span class="node-num">04</span><strong>PostgreSQL</strong
+              ><small>Orders · returns · history · environments</small>
+            </button>
+          </div>
+        </div>
+        <div class="inspector" aria-live="polite">
+          <span class="eyebrow" id="layer-kicker">Selected layer</span>
+          <h3 id="layer-title">Browser: interaction and presentation</h3>
+          <p id="layer-description">
+            React displays orders and forms, keeps temporary selection state and sends requests to
+            the same application's API. It never receives a database password.
+          </p>
+          <p class="code-ref" id="layer-code">src/components/return-form.tsx</p>
+        </div>
+        <div class="two-up">
+          <article class="card">
+            <h3>How can the backend be “inside Next.js”?</h3>
+            <p>
+              A <code>route.ts</code> file under <code>src/app/api/</code> exports a function such
+              as <code>POST</code>. Next.js routes an HTTP request to that function on the server.
+              The route calls the project's domain services; it is not browser code.
+            </p>
+            <p>
+              Vercel builds and runs the server side as Functions, while serving the interface and
+              static files. “Fullstack” means both parts are delivered together; it does not mean
+              SQL runs on the visitor's device.
+            </p>
+            <a href="https://nextjs.org/docs/app/getting-started/route-handlers"
+              >Next.js: Route Handlers ↗</a
+            >
+            · <a href="https://vercel.com/docs/frameworks/full-stack/nextjs">Vercel: Next.js ↗</a>
+          </article>
+          <article class="card">
+            <h3>Why this architecture?</h3>
+            <p>
+              The constitution chooses a modular monolith for a small, demonstrable product. One
+              repository keeps UI/API contracts together and avoids deploying and operating a
+              separate backend service. The code still separates HTTP, domain rules and persistence.
+            </p>
+            <p>
+              The tradeoff is a shared release unit and dependence on the Functions runtime. The
+              database remains an independent service, with its own capacity, connectivity and
+              operational concerns.
+            </p>
+            <span class="code-ref">src/app/api/ → src/features/ → src/lib/prisma.ts</span>
+          </article>
+        </div>
+      </section>
+      <section id="request" class="chapter">
+        <div class="section-heading">
+          <span class="eyebrow">02 · Follow a request</span>
+          <h2>What actually happens when you click Create request?</h2>
+          <p>
+            Advance through the example. Client checks help the visitor; the server decides whether
+            a write is valid.
+          </p>
+        </div>
+        <div class="request-layout">
+          <ol class="steps" id="request-steps"></ol>
+          <article class="step-detail">
+            <div class="step-top">
+              <span class="pill" id="request-place">Browser</span
+              ><span id="request-progress">Step 1 of 7</span>
+            </div>
+            <h3 id="request-title"></h3>
+            <p id="request-body"></p>
+            <pre id="request-code"></pre>
+            <div class="tip" id="request-tip"></div>
+            <div class="controls">
+              <button id="request-prev" class="secondary">Previous</button
+              ><button id="request-next">Next step <span aria-hidden="true">→</span></button>
+            </div>
+          </article>
+        </div>
+        <details>
+          <summary>What happens when two requests arrive at the same time?</summary>
+          <p>
+            The server resolves the visitor's environment and starts a database transaction. It
+            locks that environment row before evaluating and changing its data. A competing
+            operation for the same environment waits, then checks the updated quantities. PostgreSQL
+            either commits the request, items, history and operation receipt together, or rolls them
+            back together.
+          </p>
+          <p>
+            An idempotency key distinguishes a retry of the same action from a deliberate new
+            request. A matching successful retry reuses its recorded result; a changed payload with
+            the same key conflicts. A generation check prevents an old tab from writing through a
+            reset.
+          </p>
+          <span class="code-ref"
+            >src/features/demo/transaction.ts · operations.ts · src/features/returns/create.ts</span
+          >
+        </details>
+      </section>
+      <section id="lifecycle" class="chapter">
+        <div class="section-heading">
+          <span class="eyebrow">03 · The return lifecycle</span>
+          <h2>Five states. Four allowed transitions.</h2>
+          <p>
+            Try a one-item request using two purchased units. Pending, approved and received units
+            stay committed. Rejected or cancelled units become available again.
+          </p>
+        </div>
+        <div class="state-map" aria-label="Permitted return transitions">
+          <div class="state-node" data-state="PENDING">
+            <span>01</span><strong>Pending review</strong><small>Approve · reject · cancel</small>
+          </div>
+          <div class="map-arrow">Administrator approves <b aria-hidden="true">→</b></div>
+          <div class="state-node" data-state="APPROVED">
+            <span>02</span><strong>Approved — awaiting pickup</strong
+            ><small>Confirm simulated receipt</small>
+          </div>
+          <div class="map-arrow">Administrator confirms receipt <b aria-hidden="true">→</b></div>
+          <div class="state-node" data-state="RECEIVED">
+            <span>03</span><strong>Return received</strong
+            ><small>Final · units remain committed</small>
+          </div>
+        </div>
+        <div class="branches">
+          <div>
+            <span class="branch-label">From Pending · administrator rejects ↓</span>
+            <div class="state-node" data-state="REJECTED">
+              <strong>Rejected</strong><small>Final · units released · reason required</small>
+            </div>
+          </div>
+          <div>
+            <span class="branch-label">From Pending · customer cancels ↓</span>
+            <div class="state-node" data-state="CANCELLED">
+              <strong>Cancelled</strong><small>Final · units released</small>
+            </div>
+          </div>
+        </div>
+        <div class="simulator">
+          <div class="sim-header">
+            <div>
+              <span class="eyebrow">Try the lifecycle</span>
+              <h3>Mouse · purchased quantity 2</h3>
+            </div>
+            <button id="life-reset" class="secondary">Restart example</button>
+          </div>
+          <div class="quantity-bar">
+            <div><span>Purchased</span><strong>2</strong></div>
+            <div><span>Committed</span><strong id="committed">0</strong></div>
+            <div><span>Available</span><strong id="available">2</strong></div>
+            <div><span>Current state</span><strong id="life-state">Not submitted</strong></div>
+          </div>
+          <div class="life-actions">
+            <button id="life-create">Customer: request 1 unit</button
+            ><button id="life-approve" disabled>Admin: approve</button
+            ><button id="life-reject" class="secondary" disabled>Admin: reject</button
+            ><button id="life-cancel" class="secondary" disabled>Customer: cancel</button
+            ><button id="life-receive" disabled>Admin: confirm receipt</button>
+          </div>
+          <p class="sim-message" id="life-message" aria-live="polite">
+            Start by submitting a return. This example never changes your application data.
+          </p>
+          <ol class="event-log" id="event-log" aria-label="Illustrative return history"></ol>
+        </div>
+        <div class="two-up">
+          <article class="card">
+            <h3>Approval reserves; it does not pay.</h3>
+            <p>
+              Approval applies to the whole request. The customer sees a simulated pickup within
+              three business days and an explicit no-real-carrier explanation. Approval does not
+              issue a refund or confirm physical receipt.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Receipt is a separate decision.</h3>
+            <p>
+              An administrator can confirm simulated receipt only after approval, without waiting
+              three days. It ends the request and records a history event. Received quantities never
+              become available for another return; no monetary refund is issued.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section id="isolation" class="chapter">
+        <div class="section-heading">
+          <span class="eyebrow">04 · Independent demo environments</span>
+          <h2>Shared database. Scoped visitor data.</h2>
+          <p>
+            A demo environment is a group of related records, not a separate Neon project, server,
+            database or branch for every visitor.
+          </p>
+        </div>
+        <div class="isolation">
+          <article class="card">
+            <span class="pill">Browser A</span>
+            <h3>Customer tab ↔ Admin tab</h3>
+            <p>
+              Tabs in the same browser profile share first-party cookies and the same persisted
+              environment. Their selected role/customer stays in each tab's URL. After another tab
+              makes a decision, Refresh loads the latest state.
+            </p>
+          </article>
+          <div class="isolation-db">
+            <strong>One PostgreSQL database</strong
+            ><span>Environment A → its orders / returns / history</span
+            ><span>Environment B → its orders / returns / history</span
+            ><small>Server queries enforce environment + generation scope</small>
+          </div>
+          <article class="card">
+            <span class="pill">Browser B</span>
+            <h3>Another visitor</h3>
+            <p>
+              An independent browser profile/context receives a different visitor capability and
+              environment. It cannot read or modify A's scoped resources. Product definitions are
+              shared read-only catalog data.
+            </p>
+          </article>
+        </div>
+        <div class="two-up">
+          <article class="card">
+            <h3>No login does not mean no checks.</h3>
+            <p>
+              Server-issued HttpOnly cookies carry opaque capabilities. The server validates the
+              visitor token, resolves the environment token hash, verifies ownership, generation and
+              expiry, and enforces request origin and write limits. Database credentials stay on the
+              server.
+            </p>
+            <p>
+              These are anonymous demo capabilities, not authenticated people or business-role
+              permissions. Anyone holding the same browser capability can switch between that demo's
+              customer/admin views; this is not suitable authorization for a real store.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Expiry and reset are different.</h3>
+            <p>
+              After 168 hours of inactivity, access is refused and the visitor is offered an
+              explicit fresh start. Merely reaching day seven does not silently reset the screen or
+              data. A scheduled cleanup can remove expired records; access checks do not depend on
+              that job running.
+            </p>
+            <p>
+              A confirmed reset clears only this environment's generated history/requests and
+              restores its initial data and 30-day policy. A generation change fences off stale
+              writes from old tabs. The declared cleanup schedule is daily at 06:00 UTC; successful
+              hosted job execution remains a release-verification item.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section id="toolbox" class="chapter">
+        <div class="section-heading">
+          <span class="eyebrow">05 · Know the tools</span>
+          <h2>Each technology has a specific job.</h2>
+          <p>
+            Select a tool to see its responsibility in this repository. The API uses Node.js and
+            Prisma/pg; it does not need an extra Express server or a browser-to-database connection.
+          </p>
+        </div>
+        <div class="toolbox">
+          <div class="tech-buttons" id="tech-buttons" aria-label="Technology selector"></div>
+          <article class="tech-detail" aria-live="polite">
+            <span class="eyebrow" id="tech-type"></span>
+            <h3 id="tech-title"></h3>
+            <p id="tech-description"></p>
+            <ul id="tech-points"></ul>
+            <p class="code-ref" id="tech-ref"></p>
+          </article>
+        </div>
+        <div class="card neon-note">
+          <h3>Neon, PostgreSQL and Prisma are different layers.</h3>
+          <p>
+            <strong>PostgreSQL</strong> is the relational database engine.
+            <strong>Neon</strong> operates the managed PostgreSQL service for this app.
+            <strong>Prisma</strong> is the application library used to query it, backed by the pg
+            driver. <strong>Vercel</strong> runs the Next.js application that makes those queries.
+          </p>
+          <p>
+            Runtime uses a pooled connection; controlled migrations use a direct connection. Our
+            production schema and ten-product catalog are already on Neon. Local/CI PostgreSQL is
+            separate. Preview should get a separate database branch; that setup is still pending.
+            Branches separate deployment environments, not individual demo visitors.
+          </p>
+          <a href="https://neon.com/docs/introduction">Neon documentation ↗</a>
+        </div>
+        <div class="section-heading mini">
+          <h2>How changes become working software.</h2>
+          <p>
+            Spec-Driven Development gives a feature a traceable path from intent to evidence. A plan
+            or a passing document checklist is not a completed implementation.
+          </p>
+        </div>
+        <ol class="sdd-flow">
+          <li><strong>Specify</strong><small>What should happen?</small></li>
+          <li><strong>Clarify</strong><small>Resolve material ambiguity</small></li>
+          <li><strong>Plan</strong><small>How should it work?</small></li>
+          <li><strong>Tasks</strong><small>Order the work</small></li>
+          <li><strong>Analyze</strong><small>Check consistency</small></li>
+          <li><strong>Implement + verify</strong><small>Prove actual behavior</small></li>
+        </ol>
+        <p class="reading">
+          <a href="../spec-driven-development.md">Read the practical SDD runbook →</a
+          ><a href="../../specs/002-refine-interface/spec.md"
+            >Inspect the new interface specification →</a
+          >
+        </p>
+        <details>
+          <summary>What is deployed, and what is only local?</summary>
+          <p>
+            The deployed application already supports the return lifecycle, history, seeded
+            examples, scoped environments, dark mode and the in-app How returns work map. Feature
+            002 implements quieter communication, a favicon and consistent admin detail surfaces.
+            These changes are verified locally and have not been deployed. This learning page is a
+            separate documentation artifact, not a production route or proof that feature 002 is
+            deployed.
+          </p>
+        </details>
+      </section>
+    </main>
+    <footer class="footer">
+      <strong>Built from the actual project, not a generic stack diagram.</strong>
+      <p>
+        Code references: <code>src/app/api/</code>, <code>src/features/</code>,
+        <code>src/lib/prisma.ts</code>, <code>prisma/schema.prisma</code> and feature 001. No
+        secrets or production API calls are used by this guide.
+      </p>
+      <div>
+        <a href="https://nextjs.org/docs/app/getting-started/route-handlers"
+          >Next.js documentation</a
+        ><a href="https://vercel.com/docs/frameworks/full-stack/nextjs">Vercel documentation</a
+        ><a href="https://neon.com/docs/introduction">Neon documentation</a
+        ><a href="https://github.com/github/spec-kit/blob/main/spec-driven.md">GitHub Spec Kit</a>
+      </div>
+      <small
+        >Learning snapshot · 2026-10-22 · Product UI refinements are tracked separately in feature
+        002.</small
+      >
+    </footer>
+  </body>
+</html>

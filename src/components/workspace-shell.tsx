@@ -89,7 +89,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
               <div className="admin-identity">
                 <span className="avatar">DM</span>
                 <span>
-                  <strong>Demo administrator</strong>
+                  <strong>Administrator</strong>
                   <small>Your workspace only</small>
                 </span>
               </div>
@@ -110,10 +110,6 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
           <ThemeToggle />
         </div>
       </header>
-      <div className="demo-notice">
-        <Icon name="info" />
-        Demonstration only. No real refunds, shipments or pickups.
-      </div>
       <div className="app-frame">
         <nav className="rail" aria-label="Main navigation">
           <p className="nav-label">Your workspace</p>
@@ -157,11 +153,6 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
             <Icon name="settings" />
             <span>Demo settings</span>
           </Link>
-          <p className="rail-note">
-            Your own fictional workspace.
-            <br />
-            Reset it to explore again.
-          </p>
         </nav>
         <main id="main" className="page-content">
           {context.error ? <ErrorNotice error={context.error} retry={context.refresh} /> : children}

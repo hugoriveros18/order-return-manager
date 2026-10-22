@@ -59,10 +59,7 @@ export default function Home() {
               Your orders.
               <br />A clearer next step.
             </h1>
-            <p>
-              Find your purchases, explore the details and follow every update. A straightforward
-              experience from start to finish.
-            </p>
+            <p>Explore orders and returns with sample customers and purchases.</p>
             <div className="landing-cta">
               <AsyncButton
                 disabled={!!busy}
@@ -84,11 +81,11 @@ export default function Home() {
               </AsyncButton>
             </div>
             <div className="cta-notes">
-              <p>No account needed. Your own fictional customers and orders.</p>
+              <p>No account needed.</p>
               <p>Already exploring? Continue your active demonstration.</p>
             </div>
           </section>
-          <div className="preview-scene" aria-label="Example fictional order">
+          <div className="preview-scene" aria-label="Example order">
             <div className="scene-arch" />
             <div className="scene-window">
               <div className="scene-head">
@@ -103,7 +100,7 @@ export default function Home() {
                   <Image
                     key={name}
                     src={`/products/nivora-${name}.webp`}
-                    alt={`Fictional Nivora ${name} illustration`}
+                    alt={`Nivora ${name.replaceAll('-', ' ')} product illustration`}
                     width={160}
                     height={160}
                     priority
@@ -157,10 +154,6 @@ export default function Home() {
             </section>
           ))}
         </div>
-        <p className="landing-footer">
-          All products and customer profiles are fictional. This demo does not issue refunds,
-          arrange real pickups or require registration.
-        </p>
       </main>
     </>
   );

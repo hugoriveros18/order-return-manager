@@ -79,11 +79,10 @@ export function DemoReset() {
             <Icon name="lock" />
           </span>
           <div>
-            <h2>Your own demonstration</h2>
+            <h2>Your workspace</h2>
             <p>
-              Customer and administrator views share this browser’s fictional orders and requests.
-              Changes here don’t affect another visitor’s demo. Your selected customer stays local
-              to this tab.
+              Customer and administrator views share this browser’s orders and requests. Your
+              selected customer stays local to this tab.
             </p>
           </div>
         </section>
@@ -109,7 +108,7 @@ export function DemoReset() {
             <p>Restore the original example data whenever you want to try a different journey.</p>
             <ul>
               <li>Remove the requests, decisions and history you generated.</li>
-              <li>Restore the fictional orders, six example returns and their histories.</li>
+              <li>Restore the initial orders, six example returns and their histories.</li>
               <li>Restore the 30-day return window.</li>
             </ul>
             <button className="secondary" onClick={() => setConfirming(true)}>
@@ -126,7 +125,7 @@ export function DemoReset() {
         >
           <p>
             Your requests, decisions and history will be removed and replaced with the initial
-            fictional examples. This cannot be undone.
+            sample data. This cannot be undone.
           </p>
           <div className="actions">
             <button className="secondary" disabled={busy} onClick={() => setConfirming(false)}>

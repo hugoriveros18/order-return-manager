@@ -8,7 +8,10 @@ export function Brand() {
         </svg>
       </span>
       <span className="brand-text">
-        Order Returns Manager<small>Fictional purchases. Clear next steps.</small>
+        <span className="brand-title">
+          Order Returns Manager<span className="demo-label">Demo</span>
+        </span>
+        <small>Orders, returns and clear next steps.</small>
       </span>
     </Link>
   );

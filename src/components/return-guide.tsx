@@ -25,7 +25,7 @@ const stateInfo: Record<Status, StateInfo> = {
   APPROVED: {
     icon: 'check',
     tag: 'Units reserved',
-    summary: 'Prepare your products for a fictitious pickup.',
+    summary: 'Your request is approved. Review the next steps.',
     actor: 'Administrator approves',
     explanation:
       'Approval applies to the whole request. Pack the products for a simulated pickup within the next three business days. No real carrier will be sent. Units remain reserved; approval does not issue a refund or confirm physical receipt.',
@@ -33,7 +33,7 @@ const stateInfo: Record<Status, StateInfo> = {
   RECEIVED: {
     icon: 'box',
     tag: 'Final state',
-    summary: 'Fictitious receipt confirmed. The return is complete.',
+    summary: 'Receipt is confirmed. The return is complete.',
     actor: 'Administrator confirms receipt',
     explanation:
       'Only an approved request can be marked received. The administrator records this simulated receipt as a separate action; it is never automatic and does not require waiting three business days. The request is final, its units remain committed and no monetary refund is issued.',
@@ -181,11 +181,8 @@ export function ReturnGuide() {
         <article>
           <Icon name="admin" />
           <div>
-            <h3>A simulation from start to finish</h3>
-            <p>
-              Pack approved products for a fictional pickup within three business days. Receipt is
-              confirmed separately by an administrator. No real carrier or refund.
-            </p>
+            <h3>About this demo</h3>
+            <p>This demo uses sample data. Payments, refunds and shipping are not processed.</p>
           </div>
         </article>
       </section>

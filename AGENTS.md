@@ -23,6 +23,9 @@ abstractions, extra services or new dependencies without a concrete need.
   verification scenarios, actual results and outstanding work.
 
 The existing MVP baseline is [001-manage-order-returns](specs/001-manage-order-returns/spec.md).
+The interface refinement is [002-refine-interface](specs/002-refine-interface/spec.md).
+Use [the SDD runbook](docs/spec-driven-development.md) to explain request structure,
+phase commands, shell helpers and the decision to amend or create a feature package.
 Read only the additional sources needed for the task; do not preload every specification,
 prototype or skill. Git branch names and remembered chat history do not replace the
 versioned feature documents. Planning-time descriptions are historical: inspect current
@@ -34,13 +37,17 @@ For a new feature or a change to observable behavior, follow SDD even when the u
 not explicitly name Spec Kit. At the start, identify the relevant feature directory and
 briefly state which artifacts will be created or updated before implementation.
 
-| Work                                                                   | Required approach                                                                                                                                                               |
-| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| New independent capability                                             | Create `specs/<next-number>-<short-name>/`; define scenarios, requirements and acceptance criteria, then plan, generate tasks and implement.                                    |
-| Extension to an existing capability                                    | Update its spec, affected contracts and plan first; append uniquely numbered tasks before implementing. Preserve completed-task history.                                        |
-| Bug against an existing requirement                                    | Reference that requirement, fix the defect and verify it. Do not rewrite correct requirements to justify the bug. Update affected task/validation records proportionally.       |
-| Visual/copy refinement with unchanged domain behavior                  | Update the existing UI contract and applicable acceptance text; extend plan/tasks if the scope warrants it. Do not generate a whole new feature package for a small adjustment. |
-| Documentation-only change or internal refactor with unchanged behavior | Keep relevant documentation accurate and verify proportionally; do not invent a product requirement or a full SDD cycle.                                                        |
+| Work                                                                   | Required approach                                                                                                                                                                               |
+| ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| New independent capability                                             | Create `specs/<next-number>-<short-name>/`; define scenarios, requirements and acceptance criteria, then plan, generate tasks and implement.                                                    |
+| Extension to an existing capability                                    | Amend its spec/contract/plan or create a bounded follow-up package when independent review and acceptance are useful; explicitly reference what it supersedes. Preserve completed-task history. |
+| Bug against an existing requirement                                    | Reference that requirement, fix the defect and verify it. Do not rewrite correct requirements to justify the bug. Update affected task/validation records proportionally.                       |
+| Visual/copy refinement with unchanged domain behavior                  | Update the existing UI contract and applicable acceptance text; extend plan/tasks if the scope warrants it. Do not generate a whole new feature package for a small adjustment.                 |
+| Documentation-only change or internal refactor with unchanged behavior | Keep relevant documentation accurate and verify proportionally; do not invent a product requirement or a full SDD cycle.                                                                        |
+
+When asked how to add a feature, explain the runbook, offer its goal/users/current/expected/
+rules/acceptance/scope/delivery input template, identify the right package and distinguish
+chat skill commands from shell scripts. Do not assume the user already knows Spec Kit.
 
 For feature work, use this sequence:
 
@@ -78,10 +85,12 @@ to review the methodology and specification → plan → tasks process. Use thes
 when refreshing how Spec Kit works; use this repository's constitution, specifications
 and installed skill instructions for project decisions and version-specific execution.
 
-Spec Kit uses `SPECIFY_FEATURE` or the ignored `.specify/feature.json` pointer to resolve
-an active feature; a fresh clone may have neither. Select the intended feature from the
-request and `specs/`, rather than assuming `main`/`master` identifies it. For an existing
-feature, use the matching `SPECIFY_FEATURE` value when invoking prerequisite scripts.
+Installed Spec Kit scripts resolve the active feature from `SPECIFY_FEATURE_DIRECTORY`
+(for example, `specs/002-refine-interface`) or the ignored `.specify/feature.json` pointer.
+`SPECIFY_FEATURE` supplies branch context; it is not a substitute for the directory
+override. A fresh clone may have no pointer. Select from the request and `specs/`,
+rather than assuming `main`/`master` identifies a feature. Use the explicit directory
+when invoking prerequisite/setup scripts; see the runbook for verified commands.
 Do not commit machine-local feature pointers or absolute workstation paths.
 
 ## Domain invariants to preserve
