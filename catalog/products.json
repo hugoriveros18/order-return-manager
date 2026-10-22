@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "sku": "ORM-KB-001",
+    "name": "Nivora KeyForm T84",
+    "brand": "Nivora",
+    "category": "Peripherals",
+    "description": "Compact mechanical keyboard designed for everyday productivity, combining tactile typing with a space-saving layout.",
+    "price": 79.99,
+    "currency": "USD",
+    "specifications": [
+      "84-key compact layout",
+      "Bluetooth 5.1 and USB-C wired connectivity",
+      "Tactile mechanical switches",
+      "Adjustable white backlighting",
+      "3000 mAh rechargeable battery",
+      "Windows and macOS compatible"
+    ],
+    "image": "images/nivora-keyform-t84.webp",
+    "imageAlt": "Nivora KeyForm T84 product photograph"
+  },
+  {
+    "id": 2,
+    "sku": "ORM-MS-002",
+    "name": "Nivora FlowGrip M6",
+    "brand": "Nivora",
+    "category": "Peripherals",
+    "description": "Comfortable right-handed wireless mouse with an ergonomic shape and adjustable tracking sensitivity.",
+    "price": 39.99,
+    "currency": "USD",
+    "specifications": [
+      "Right-handed ergonomic shape",
+      "2.4 GHz wireless and Bluetooth connectivity",
+      "Selectable 1000 / 1600 / 2400 / 4000 DPI",
+      "Six-button design",
+      "USB-C rechargeable battery",
+      "Up to 60 days of moderate use per charge"
+    ],
+    "image": "images/nivora-flowgrip-m6.webp",
+    "imageAlt": "Nivora FlowGrip M6 product photograph"
+  },
+  {
+    "id": 3,
+    "sku": "ORM-HP-003",
+    "name": "Nivora AirTone H5",
+    "brand": "Nivora",
+    "category": "Audio",
+    "description": "Wireless over-ear headphones with cushioned earcups for listening, work calls, and everyday use.",
+    "price": 69.99,
+    "currency": "USD",
+    "specifications": [
+      "Bluetooth 5.3 connectivity",
+      "40 mm audio drivers",
+      "Built-in call microphone",
+      "Up to 35 hours of playback",
+      "USB-C charging",
+      "Adjustable padded headband"
+    ],
+    "image": "images/nivora-airtone-h5.webp",
+    "imageAlt": "Nivora AirTone H5 product photograph"
+  },
+  {
+    "id": 4,
+    "sku": "ORM-WC-004",
+    "name": "Nivora ClearView C1080",
+    "brand": "Nivora",
+    "category": "Video & Conferencing",
+    "description": "Full HD webcam for online meetings and video calls with a practical privacy shutter and monitor clip.",
+    "price": 49.99,
+    "currency": "USD",
+    "specifications": [
+      "1920 × 1080 resolution at 30 fps",
+      "Autofocus",
+      "Dual integrated microphones",
+      "Sliding privacy shutter",
+      "Adjustable monitor clip",
+      "USB plug-and-play connection"
+    ],
+    "image": "images/nivora-clearview-c1080.webp",
+    "imageAlt": "Nivora ClearView C1080 product photograph"
+  },
+  {
+    "id": 5,
+    "sku": "ORM-LS-005",
+    "name": "Nivora LiftStand A1",
+    "brand": "Nivora",
+    "category": "Desk Accessories",
+    "description": "Adjustable aluminum laptop stand that raises your screen and helps organize a comfortable desk setup.",
+    "price": 34.99,
+    "currency": "USD",
+    "specifications": [
+      "Fits most 11–16 inch laptops",
+      "Aluminum construction",
+      "Adjustable height and angle",
+      "Foldable design",
+      "Non-slip silicone contact pads",
+      "Open design for airflow"
+    ],
+    "image": "images/nivora-liftstand-a1.webp",
+    "imageAlt": "Nivora LiftStand A1 product photograph"
+  },
+  {
+    "id": 6,
+    "sku": "ORM-HB-006",
+    "name": "Nivora LinkHub 6",
+    "brand": "Nivora",
+    "category": "Connectivity",
+    "description": "Compact USB-C hub that expands laptop connections for displays, accessories, and memory cards.",
+    "price": 39.99,
+    "currency": "USD",
+    "specifications": [
+      "Six-in-one port expansion",
+      "HDMI output up to 4K at 30 Hz",
+      "Two USB-A 3.0 ports",
+      "USB-C PD pass-through input up to 100 W",
+      "SD and microSD card slots",
+      "Integrated USB-C cable"
+    ],
+    "image": "images/nivora-linkhub-6.webp",
+    "imageAlt": "Nivora LinkHub 6 product photograph"
+  },
+  {
+    "id": 7,
+    "sku": "ORM-CH-007",
+    "name": "Nivora PowerDock 65",
+    "brand": "Nivora",
+    "category": "Charging",
+    "description": "Compact 65 W multiport wall charger for powering a laptop, phone, and accessories.",
+    "price": 44.99,
+    "currency": "USD",
+    "specifications": [
+      "65 W maximum combined output",
+      "GaN-based charger design",
+      "Two USB-C ports and one USB-A port",
+      "Dynamic power sharing",
+      "Overcurrent and overtemperature protection",
+      "US-style two-prong plug"
+    ],
+    "image": "images/nivora-powerdock-65.webp",
+    "imageAlt": "Nivora PowerDock 65 product photograph"
+  },
+  {
+    "id": 8,
+    "sku": "ORM-SP-008",
+    "name": "Nivora SoundNest S2",
+    "brand": "Nivora",
+    "category": "Audio",
+    "description": "Compact Bluetooth speaker with a fabric grille and simple on-device controls for desktop listening.",
+    "price": 44.99,
+    "currency": "USD",
+    "specifications": [
+      "Bluetooth 5.3 connectivity",
+      "12 W rated output",
+      "Up to 10 hours of playback",
+      "Built-in microphone for calls",
+      "USB-C charging",
+      "Top-mounted media controls"
+    ],
+    "image": "images/nivora-soundnest-s2.webp",
+    "imageAlt": "Nivora SoundNest S2 product photograph"
+  },
+  {
+    "id": 9,
+    "sku": "ORM-LP-009",
+    "name": "Nivora BeamDesk L1",
+    "brand": "Nivora",
+    "category": "Lighting",
+    "description": "Minimalist adjustable LED desk lamp with customizable light settings for focused work.",
+    "price": 34.99,
+    "currency": "USD",
+    "specifications": [
+      "Energy-efficient LED light bar",
+      "Three color temperature settings",
+      "Five brightness levels",
+      "Adjustable arm and lamp head",
+      "Touch controls on the base",
+      "USB-C power input"
+    ],
+    "image": "images/nivora-beamdesk-l1.webp",
+    "imageAlt": "Nivora BeamDesk L1 product photograph"
+  },
+  {
+    "id": 10,
+    "sku": "ORM-DM-010",
+    "name": "Nivora DeskMat XL",
+    "brand": "Nivora",
+    "category": "Desk Accessories",
+    "description": "Extended desk mat that protects your desktop and creates a smooth, organized workspace.",
+    "price": 24.99,
+    "currency": "USD",
+    "specifications": [
+      "80 × 40 cm surface",
+      "Splash-resistant upper surface",
+      "Non-slip underside",
+      "Reinforced stitched edges",
+      "Suitable for optical mice",
+      "Wipe-clean maintenance"
+    ],
+    "image": "images/nivora-deskmat-xl.webp",
+    "imageAlt": "Nivora DeskMat XL product photograph"
+  }
+]

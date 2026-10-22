@@ -1,0 +1,183 @@
+generator client {
+  provider = "prisma-client"
+  output = "../src/generated/prisma"
+}
+datasource db {
+  provider = "postgresql"
+}
+enum OrderStatus {
+  PROCESSING
+  SHIPPED
+  DELIVERED
+}
+enum ReturnStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+  RECEIVED
+}
+enum EventType {
+  CREATED
+  APPROVED
+  REJECTED
+  CANCELLED
+  RECEIVED
+}
+enum ActorKind {
+  CUSTOMER
+  ADMIN
+}
+enum OperationKind {
+  CREATE_RETURN
+  APPROVE
+  REJECT
+  CANCEL
+  RECEIVE
+  UPDATE_POLICY
+  RESET
+}
+enum RateCategory {
+  MUTATION_MINUTE
+  RESET_HOUR
+  CREATE_ENVIRONMENT_HOUR
+}
+model VisitorContext {
+  id String @id @default(uuid()) @db.Uuid
+  tokenHash String @unique
+  createdAt DateTime @default(now()) @db.Timestamptz
+  lastEnvironmentExpiredAt DateTime? @db.Timestamptz
+}
+model DemoEnvironment {
+  id String @id @default(uuid()) @db.Uuid
+  visitorId String @unique @db.Uuid
+  capabilityHash String @unique
+  generation Int @default(1)
+  lastActivityAt DateTime @default(now()) @db.Timestamptz
+  createdAt DateTime @default(now()) @db.Timestamptz
+  @@index([lastActivityAt])
+}
+model Product {
+  id Int @id
+  sku String @unique
+  name String
+  description String
+  category String
+  imagePath String
+  imageAlt String
+  priceMinor BigInt
+  currency String @default("USD")
+}
+model Customer {
+  id String @id @default(uuid()) @db.Uuid
+  environmentId String @db.Uuid
+  generation Int
+  displayName String
+  @@unique([environmentId,generation,id])
+}
+model Order {
+  id String @id @default(uuid()) @db.Uuid
+  environmentId String @db.Uuid
+  generation Int
+  customerId String @db.Uuid
+  displayNumber String
+  orderedAt DateTime @db.Timestamptz
+  status OrderStatus
+  deliveredAt DateTime? @db.Timestamptz
+  @@unique([environmentId,generation,id])
+  @@unique([environmentId,generation,id,customerId])
+  @@unique([environmentId,generation,displayNumber])
+  @@index([environmentId,generation,customerId,orderedAt])
+}
+model OrderItem {
+  id String @id @default(uuid()) @db.Uuid
+  environmentId String @db.Uuid
+  generation Int
+  orderId String @db.Uuid
+  productId Int
+  purchasedQuantity Int
+  purchasePriceMinor BigInt
+  @@unique([environmentId,generation,id,orderId])
+  @@unique([environmentId,generation,orderId,productId])
+}
+model ReturnPolicy {
+  environmentId String @id @db.Uuid
+  windowDays Int @default(30)
+  updatedAt DateTime @updatedAt @db.Timestamptz
+}
+model ReturnRequest {
+  id String @id @default(uuid()) @db.Uuid
+  environmentId String @db.Uuid
+  generation Int
+  orderId String @db.Uuid
+  customerId String @db.Uuid
+  displayNumber String
+  reason String
+  status ReturnStatus @default(PENDING)
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
+  rejectionReason String?
+  version Int @default(1)
+  @@unique([environmentId,generation,id])
+  @@unique([environmentId,generation,id,orderId])
+  @@unique([environmentId,generation,displayNumber])
+  @@index([environmentId,generation,status,createdAt,id])
+  @@index([environmentId,generation,customerId,createdAt,id])
+}
+model ReturnItem {
+  id String @id @default(uuid()) @db.Uuid
+  environmentId String @db.Uuid
+  generation Int
+  requestId String @db.Uuid
+  orderItemId String @db.Uuid
+  orderId String @db.Uuid
+  quantity Int
+  @@unique([requestId,orderItemId])
+  @@index([orderItemId])
+}
+model HistoryEvent {
+  id String @id @default(uuid()) @db.Uuid
+  environmentId String @db.Uuid
+  generation Int
+  requestId String @db.Uuid
+  sequence Int
+  eventType EventType
+  occurredAt DateTime @default(now()) @db.Timestamptz
+  actorKind ActorKind
+  actorCustomerId String? @db.Uuid
+  reason String?
+  @@unique([requestId,sequence])
+}
+model OperationReceipt {
+  id String @id @default(uuid()) @db.Uuid
+  environmentId String @db.Uuid
+  inputGeneration Int
+  operationId String @db.Uuid
+  operationKind OperationKind
+  payloadHash String
+  actorScope String
+  resultJson Json
+  statusCode Int
+  createdAt DateTime @default(now()) @db.Timestamptz
+  @@unique([environmentId,inputGeneration,operationId])
+}
+model ProvisionReceipt {
+  visitorId String @db.Uuid
+  operationId String @db.Uuid
+  nonce String
+  resultEnvironmentId String @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz
+  @@id([visitorId,operationId])
+}
+model RateBucket {
+  visitorHash String
+  category RateCategory
+  windowStart DateTime @db.Timestamptz
+  attempts Int
+  expiresAt DateTime @db.Timestamptz
+  @@id([visitorHash,category,windowStart])
+  @@index([expiresAt])
+}
+model CapacityGuard {
+  id Int @id
+}

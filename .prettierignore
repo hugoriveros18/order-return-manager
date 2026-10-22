@@ -1,0 +1,12 @@
+node_modules/
+.next/
+src/generated/
+coverage/
+dist/
+build/
+playwright-report/
+test-results/
+package-lock.json
+catalog/
+.specify/
+.agents/

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Order Returns Manager · Return guide concepts</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="preview.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="review-bar">
+      <div class="review-brand">
+        <span class="review-dot"></span>Return guide <span class="muted">/ Design preview</span>
+      </div>
+      <nav class="concept-switch" aria-label="Design alternative">
+        <button data-concept="a" aria-pressed="true">
+          A <span>Flow map</span><span class="recommended-dot" aria-label="Recommended"></span>
+        </button>
+        <button data-concept="b" aria-pressed="false">B <span>Guided journey</span></button>
+        <button data-concept="c" aria-pressed="false">C <span>Role lanes</span></button>
+      </nav>
+      <button class="theme-toggle" aria-label="Switch to dark mode"></button>
+    </div>
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark" data-icon="box"></span>
+        <div>
+          <strong>Order Returns Manager</strong
+          ><small>Fictional purchases. Clear next steps.</small>
+        </div>
+      </div>
+      <span class="guide-pill"><span data-icon="info"></span>Your demo, explained</span>
+    </header>
+    <div class="demo-strip">
+      <span data-icon="info"></span>Demonstration only. No real refunds, shipments or pickups.
+    </div>
+    <div class="workspace">
+      <aside class="sidebar" aria-label="Preview navigation">
+        <p class="eyebrow">Your workspace</p>
+        <span class="nav-item"><span data-icon="box"></span>Orders</span>
+        <span class="nav-item"><span data-icon="returns"></span>My returns</span>
+        <a class="nav-item selected" href="#main" aria-current="page"
+          ><span data-icon="route"></span>How returns work</a
+        >
+        <div class="sidebar-bottom">
+          <span class="nav-item"><span data-icon="settings"></span>Demo settings</span
+          ><small>Learn the flow.<br />Explore at your own pace.</small>
+        </div>
+      </aside>
+      <main id="main" tabindex="-1">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow page-eyebrow">The return guide</div>
+            <h1>Every return has a clear next step.</h1>
+            <p>See what happens, who takes action and where a request can go.</p>
+          </div>
+          <span class="reading-time"><span data-icon="clock"></span>A one-minute overview</span>
+        </div>
+        <div id="concept-content"></div>
+        <section class="essentials" aria-label="Return essentials">
+          <article>
+            <span class="essential-icon" data-icon="box"></span>
+            <div>
+              <h3>Start with an eligible order</h3>
+              <p>
+                Delivered, inside your return window and with units still available. The initial
+                window is 30 calendar days.
+              </p>
+            </div>
+          </article>
+          <article>
+            <span class="essential-icon" data-icon="layers"></span>
+            <div>
+              <h3>One product, multiple units</h3>
+              <p>
+                Bought 2 and requested 1? The other unit can have its own request. Pending, approved
+                and received units stay committed.
+              </p>
+            </div>
+          </article>
+          <article>
+            <span class="essential-icon" data-icon="shield"></span>
+            <div>
+              <h3>A simulation from start to finish</h3>
+              <p>
+                Approval means prepare the products for a fictional pickup within three business
+                days. No real carrier or refund.
+              </p>
+            </div>
+          </article>
+        </section>
+        <details class="quantity-help">
+          <summary>
+            Why can the same product appear in another return?<span data-icon="down"></span>
+          </summary>
+          <div>
+            <p>
+              Availability is calculated per order item: purchased units minus units in pending,
+              approved and received requests. Rejected or cancelled requests release their units.
+              The order must still meet the return window and delivery rules.
+            </p>
+            <div class="quantity-example">
+              <span><strong>2</strong> units purchased</span><span aria-hidden="true">−</span
+              ><span><strong>1</strong> unit committed</span><span aria-hidden="true">=</span
+              ><span><strong>1</strong> unit available</span>
+            </div>
+          </div>
+        </details>
+        <aside class="design-note" aria-label="Design rationale">
+          <span class="note-label">Design note</span>
+          <p id="design-rationale"></p>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>

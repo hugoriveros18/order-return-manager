@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: orm
+      POSTGRES_PASSWORD: orm
+      POSTGRES_DB: orm_dev
+    ports: ["127.0.0.1:55432:5432"]
+    volumes:
+      - orm-data:/var/lib/postgresql/data
+      - ./scripts/init-test-database.sql:/docker-entrypoint-initdb.d/test.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U orm -d orm_dev"]
+      interval: 2s
+      retries: 20
+volumes:
+  orm-data:

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Order Returns Manager · UI alternatives</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="prototype.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <div class="study-bar">
+      <a class="study-title" href="#comparison" data-action="comparison"
+        >UI study <span>Interactive sample</span></a
+      >
+      <nav class="concepts" aria-label="Design alternative">
+        <button data-concept="a">A <span>Clarity</span></button>
+        <button data-concept="b">B <span>Studio</span></button>
+        <button data-concept="c">C <span>Console</span></button>
+      </nav>
+      <label class="screen-picker"
+        >Preview screen
+        <span class="select-wrap"
+          ><select id="screen-choice" aria-label="Preview screen">
+            <option value="home">Welcome</option>
+            <option value="orders">Orders</option>
+            <option value="select">Choose products</option>
+            <option value="review">Review request</option>
+            <option value="success">Confirmation</option>
+            <option value="returns">My returns</option>
+            <option value="admin">Administrator</option>
+            <option value="settings">Demo settings</option>
+            <option value="comparison">Design rationale</option>
+          </select></span
+        >
+      </label>
+    </div>
+    <div id="app"></div>
+    <div id="announcer" class="sr-only" aria-live="polite"></div>
+  </body>
+</html>
