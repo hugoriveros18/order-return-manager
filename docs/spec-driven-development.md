@@ -9,16 +9,38 @@ Codex should explain this workflow when asked and apply it by default under AGEN
 
 | Request                                                              | Where it belongs                                                                            |
 | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| New capability or a bounded change needing its own acceptance/review | New numbered package under specs/, referencing the MVP and any earlier package it extends.  |
-| Small extension with no need for independent tracking                | Amend the existing feature's spec/contract and append tasks; retain completed history.      |
+| Distinct capability with its own user goal and independently testable scope | New numbered package under specs/, referencing existing capabilities it depends on or changes. |
+| Extension, UI refinement or iteration within an existing capability   | Update the existing spec/contract/plan and append uniquely numbered tasks; retain completed history. |
 | Bug against an accepted requirement                                  | Reference that requirement, fix the implementation and update evidence proportionally.      |
 | Small copy/style adjustment                                          | Update the UI contract and affected acceptance text; avoid unnecessary feature scaffolding. |
-| Learning material or internal documentation                          | Keep it under docs/ and verify links/examples; do not pretend it is an application feature. |
+| Reusable internal documentation                                      | Keep it under docs/ and verify links/examples; personal learning material remains local/unversioned. |
 
-Both a new package and an amendment can be correct. The deciding factors are scope,
-reviewability and independent acceptance, not whether a change touches an existing page.
-For this multi-part iteration, 002-refine-interface adds communication, favicon and admin
-semantic-detail changes; 001-manage-order-returns remains the MVP/domain baseline.
+Default to evolving the specification that already owns the behavior. In this repository,
+communication, favicon and administrator detail styling refine the existing order/return
+experience, so they belong in 001-manage-order-returns. They are FR-042–047/SC-016–020,
+with completed tasks T117–T126. The separate interface package has been consolidated.
+
+Create a new specification when a request introduces a distinct user goal and a coherent
+acceptance scope that can be described and tested on its own. For example, a future
+product-exchange workflow would have different outcomes and rules from a return; it
+would require a new spec and explicit scope approval. Changing return-reason copy,
+adding a favicon, improving skeletons or refining rejection panels updates the existing
+spec instead. A new database table is neither required nor sufficient for a new feature.
+Separate release timing, diff size or a Git branch does not by itself justify a new spec.
+
+This boundary is the project's workflow convention, not a universal Spec Kit mandate.
+The official [SDD guide](https://github.com/github/spec-kit/blob/main/spec-driven.md)
+describes evolving specifications and continuous refinement. The official
+[specify command template](https://github.com/github/spec-kit/blob/main/templates/commands/specify.md)
+also supports numbered feature directories and an explicitly selected directory. These
+sources support both evolving intent and separate features; they do not prescribe a
+single granularity for every change. State the ownership decision before creating files.
+
+When amending, update accepted behavior first, adjust affected design/contracts, then
+append tasks after the highest existing ID. Never regenerate the whole completed task
+list. Preserve old IDs and completion evidence; use a mapping if consolidating a package.
+When creating a distinct feature, document dependencies and update existing specifications
+whose behavior is intentionally changed, keeping one clear owner for each requirement.
 
 ## What to send Codex
 
@@ -72,8 +94,8 @@ None implies release permission.
 
 "Plan this change and run the SDD planning phases automatically, excluding constitution"
 means specify → clarify as needed → plan → tasks → analyze. Implementation is a separate
-instruction. "Implement feature 002" authorizes its tasks; it does not automatically
-complete unrelated deployment tasks still pending in feature 001.
+instruction. "Implement the interface refinement" authorizes its tasks; it does not
+automatically complete unrelated deployment tasks T097/T099.
 
 ## Close implementation with convergence
 
@@ -89,7 +111,7 @@ implement → run appropriate checks → converge → review/release
 
 Run converge only after tasks have been generated and implement has run on that task
 list. Name the feature explicitly, for example: `$speckit-converge for
-specs/002-refine-interface`. The shell prerequisite helper resolves paths; it does not
+specs/001-manage-order-returns`. The shell prerequisite helper resolves paths; it does not
 perform the audit. The audit examines present code, not Git differences or history.
 Every task is assessed regardless of its checkbox, along with requirements, acceptance
 scenarios, plan decisions and governing constitutional constraints.
@@ -115,7 +137,7 @@ Do not infer it from the Git branch. `SPECIFY_FEATURE` is a branch-context hint 
 installation; it is not a substitute for the feature-directory path override.
 
 ```bash
-export SPECIFY_FEATURE_DIRECTORY=specs/002-refine-interface
+export SPECIFY_FEATURE_DIRECTORY=specs/001-manage-order-returns
 
 .specify/scripts/bash/check-prerequisites.sh --json --paths-only
 .specify/scripts/bash/setup-plan.sh --json
@@ -123,8 +145,11 @@ export SPECIFY_FEATURE_DIRECTORY=specs/002-refine-interface
 .specify/scripts/bash/check-prerequisites.sh --json --require-spec --require-tasks --include-tasks
 ```
 
-The setup scripts preserve existing plan/task files; they do not write the plan or
-mark tasks complete. For a **new** feature, let speckit-specify select the next number
+For amendments, explicitly select the current directory and edit its artifacts without
+replacing completed content. Review a helper/skill's installed behavior before invoking
+it on populated files; selecting a directory does not make template copying harmless.
+The scripts do not perform the reasoning or mark tasks complete.
+For a **new** feature, let speckit-specify select the next number
 and create its spec. Do not run create-new-feature.sh on an existing feature as a way
 to select it. Branch creation is a separate optional workflow, not the source of truth.
 Use SPECIFY_FEATURE_NO_PERSIST=1 for read-only helper checks if pointer changes are not
@@ -134,8 +159,7 @@ wanted. Keep .specify/feature.json ignored and never commit workstation paths/se
 
 ```text
 .specify/memory/constitution.md       Project-wide principles
-specs/001-manage-order-returns/       Existing MVP/domain baseline
-specs/002-refine-interface/           Bounded follow-up change
+specs/001-manage-order-returns/       MVP and refinements to its existing capabilities
   spec.md                            What/why; scenarios, requirements and outcomes
   plan.md                            How; architecture, constraints and delivery
   research.md                        Decisions, rationale and alternatives
@@ -146,14 +170,14 @@ specs/002-refine-interface/           Bounded follow-up change
   tasks.md                           Dependency-ordered implementation/checks
   validation.md                      Actual commands, evidence and limits
   checklists/requirements.md          Requirement quality, not app-test results
-docs/                               Reusable operational/development/learning guides
+docs/                               Reusable operational/development guides
 ```
 
-IDs are local to a package: write `002/FR-001` when comparing features so it is not
-confused with `001/FR-001`. A later specification explicitly identifies which baseline
-presentation rules it supersedes. Domain rules remain in the baseline unless a later
-approved change deliberately updates them. Do not duplicate or rewrite completed
-baseline tasks just to make a new package appear complete.
+IDs are local to a feature directory. Within 001, keep FR-001–041, SC-001–015 and
+T001–T116 stable; the interface refinement extends those sequences. For future separate
+features, qualify cross-feature references with their directory/number. Do not duplicate
+or rewrite completed tasks to make a new package appear complete. Historical evidence
+may retain retired identifiers when an explicit migration map explains their current IDs.
 
 ## Evidence and implementation boundaries
 

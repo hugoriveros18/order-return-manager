@@ -463,7 +463,7 @@ while independent local work continues.
 
 ## Notes
 
-- Implementation status: 114 of 116 tasks are checked after local implementation and
+- Implementation status: 124 of 126 tasks are checked after local implementation and
   executed verification. T097 and T099 remain open for the managed database, deployment
   and public preview verification. See validation.md for evidence and limitations.
 - Retain the required SDD design files. Do not recreate superseded comparison HTML,
@@ -516,3 +516,32 @@ while independent local work continues.
 | Added requirement / criterion | Implementation | Verification |
 | --- | --- | --- |
 | FR-041 / SC-015 | T115 | T116 |
+
+
+## Phase 13: Interface communication, favicon and detail refinement
+
+Completed work consolidated from the retired interface-only package. Existing task IDs
+and completion states are preserved; T097/T099 remain pending. US10–US12 and FR-042–047/
+SC-016–020 define this scope. No new application work is implied by this relocation.
+
+- [X] T117 [US10] Update src/components/brand.tsx, src/components/workspace-shell.tsx, src/components/customer-picker.tsx and src/app/page.tsx per contracts/ui.md; remove redundant global/rail/landing copy and retain one Demo identifier, accessible names and stable profile geometry. Adjust src/app/globals.css only for the compact identity and removed blocks. Covers FR-042/FR-043/FR-045.
+- [X] T118 [P] [US10] Simplify customer notes, selection/review/success and image descriptions in src/components/orders-screen.tsx, src/components/return-form.tsx and src/components/order-sheet.tsx without changing stored data, prices, reasons, quantities or next steps. Covers FR-043/FR-045.
+- [X] T119 [US10] Consolidate state-specific approval/receipt limits in src/components/admin-review.tsx, src/components/return-instructions.tsx and src/components/return-guide.tsx using the contract, preserving baseline FR-019/FR-020/FR-041 and canonical labels/actions. Covers FR-044/FR-045.
+- [X] T120 [P] [US10] Simplify settings/reset copy in src/components/demo-reset.tsx and metadata in src/app/layout.tsx while preserving loss, irreversibility, inactivity, recovery and tab context. Covers FR-043/FR-045.
+- [X] T121 [P] [US11] Add src/app/icon.svg and src/app/favicon.ico derived from the existing parcel/return mark, with self-contained contrast and 16/32/48px ICO entries; use App Router metadata conventions and avoid duplicate/default icons. Covers FR-046/SC-019.
+- [X] T122 [US12] Align administrator detail surfaces in src/components/admin-review.tsx with src/components/customer-returns.tsx and src/components/return-instructions.tsx using src/app/globals.css semantic classes/tokens; preserve multiline/long reasons, full-width blocks, heading spacing, labels and role actions. Extract a shared panel only if warranted. Depends on T117/T119 to avoid conflicting copy/style edits. Covers FR-047/SC-020.
+- [X] T123 [US10] Add bounded behavior acceptance in tests/e2e/communication.spec.ts and update approved-copy selectors in affected tests/e2e files; cover direct entry, four consequence scenarios, picker accessibility, guide/reset/expiry and light/dark 360/1280px. Reuse receive-return, full-demo, reset-expiry and loading-states tests rather than global banned-word scans or string-only unit tests. Depends on T117–T120; covers FR-042–FR-045/SC-016–SC-018.
+- [X] T124 [P] [US11] Verify generated icon links, valid SVG/ICO response types and no missing/conflicting icons in tests/e2e/communication.spec.ts or a dedicated tests/e2e/favicon.spec.ts; visually review 16/32px light/dark renderings and fresh-context landing/nested routes. Use a separate favicon.spec.ts if running alongside T123. Depends on T121; covers FR-046/SC-019.
+- [X] T125 [US12] Extend tests/e2e/admin-review.spec.ts and affected detail scenarios with the five-state semantic mapping, explicit labels, multiline/long reasons, widths, theme contrast and 360/1280px behavior. Compare corresponding customer detail semantics and retain existing decisions/history tests. Depends on T122; covers FR-047/SC-020.
+- [X] T126 Run lint, typecheck, focused browser checks and production build; visually review all three refinement stories and record actual evidence/limits in specs/001-manage-order-returns/validation.md. Align README.md's interface summary only when runtime changes land. Depends on T123/T124/T125; covers FR-042–047 and SC-016–020.
+
+| Requirements / criteria | Implementation | Verification |
+| --- | --- | --- |
+| FR-042 / SC-016 | T117 | T123, T126 |
+| FR-043 / SC-016 | T117, T118, T120 | T123, T126 |
+| FR-044 / SC-017 | T119 | T123, T126 |
+| FR-045 / SC-018 | T117–T120 | T123, T126 |
+| FR-046 / SC-019 | T121 | T124, T126 |
+| FR-047 / SC-020 | T122 | T125, T126 |
+
+Current total: 124 of 126 tasks complete. T097/T099 retain their separate acceptance.

@@ -113,9 +113,10 @@ See [validation evidence](specs/001-manage-order-returns/validation.md),
 
 See the [practical SDD runbook](docs/spec-driven-development.md) for request examples,
 phase/command mapping, feature-package structure and actual repository helper scripts.
-The current interface follow-up is [002-refine-interface](specs/002-refine-interface/spec.md);
-its [tasks](specs/002-refine-interface/tasks.md) are implemented and locally verified.
-See its [validation record](specs/002-refine-interface/validation.md) for evidence and limits.
+Interface refinements extend the [existing specification](specs/001-manage-order-returns/spec.md)
+as FR-042–047/SC-016–020. Their completed work is recorded as T117–T126 in the
+[original task list](specs/001-manage-order-returns/tasks.md); see the
+[validation record](specs/001-manage-order-returns/validation.md) for evidence and limits.
 After implementation and verification, run `$speckit-converge` for the selected feature
 before handoff. Implement any resulting tasks, verify and repeat until gaps are resolved.
 
@@ -183,4 +184,5 @@ The shared header identifies the app with one compact Demo label. Routine screen
 on orders and next steps; approval and receipt details retain contextual consequences.
 Customer/admin request evidence shares semantic reason, rejection, approved and received
 surfaces in both themes. Browser tabs use a parcel/return favicon with SVG and ICO formats.
-These changes are locally verified under feature 002; production deployment is separate.
+These changes are locally verified as refinements of feature 001; production deployment
+evidence remains separate from local verification.

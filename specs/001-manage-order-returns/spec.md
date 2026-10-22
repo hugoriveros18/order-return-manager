@@ -257,6 +257,51 @@ reset it and verify its restored baseline and the other environment's unchanged 
    old tab reads data or submits an operation, **Then** access is blocked before activity
    can be renewed, no operation is applied, and the expiration explanation is shown.
 
+### User Story 10 — Clear, respectful communication (Priority: P1)
+
+As a visitor, I can focus on orders and returns, recognize that I am using a demo and
+understand approval/receipt consequences where they matter.
+
+**Independent test**: Browse landing, direct customer/admin links, order selection,
+return creation/review/confirmation, pending/approved/received detail, guide and settings.
+
+1. Given any landing/workspace destination, including loading/error/empty/expiry states,
+   when it is displayed, one concise Demo identifier is visible without a global warning.
+2. Given routine order, picker or form content, when read, copy describes the task rather
+   than repeatedly stating that customers/orders are fictional. USD details are retained.
+3. Given pending-admin or approved details, when approval or next steps are considered,
+   applicable no-refund/no-physical-receipt, simulated three-business-day pickup and
+   no-real-carrier explanations remain visible without opening help.
+4. Given a received detail, when inspected, the simulation remains clear and no refund is
+   implied. Reset loss, expiry, recovery and safe errors remain explicit where relevant.
+
+### User Story 11 — Recognizable browser identity (Priority: P2)
+
+As a visitor with several tabs, I can recognize this application from a clear favicon.
+
+**Independent test**: Open landing and nested customer/admin pages in modern desktop
+browsers and inspect the small tab icon in light/dark browser appearance.
+
+1. Given any application route, when loaded, the browser receives the same branded icon
+   rather than an absent or framework-default icon.
+2. Given a 16px or 32px tab icon, when displayed against light/dark browser chrome,
+   its parcel/return motif is discernible without text or a clipped symbol.
+
+### User Story 12 — Consistent request evidence (Priority: P2)
+
+As an administrator, I can distinguish the customer's reason, a rejection explanation
+and the current outcome using the same visual semantics as the customer detail.
+
+**Independent test**: Inspect pending, approved, rejected, received and cancelled
+requests in both views and compare corresponding evidence regions.
+
+1. Given a rejected request, when opened by the administrator, Rejection reason uses
+   the customer view's error treatment and is distinct from the neutral Customer reason.
+2. Given approved or received details, when inspected, corresponding informational or
+   success surfaces match customer detail semantics without changing role-specific actions.
+3. Given pending/cancelled details or multiline/long reasons, when viewed at narrow/wide
+   widths in either theme, headings, text and status labels remain readable and aligned.
+
 ### Edge Cases
 
 - Delivery day is day zero. A request on the final allowed local calendar date is valid;
@@ -278,6 +323,14 @@ reset it and verify its restored baseline and the other environment's unchanged 
 - A reset does not erase another visitor's data or bypass anonymous-write limits.
 - Temporary failures preserve existing domain data and show a safe, actionable error;
   empty lists and loading states remain understandable and usable.
+
+- Direct links must not rely on a visitor having read the landing-page introduction.
+- An icon may be cached by a browser; verify fresh metadata/network responses and a
+  fresh browser context before treating a stale tab as a defective asset.
+- A cancelled request must not receive a green receipt-confirmation panel by association.
+- A long rejection reason must wrap and retain line breaks without layout overflow.
+- Do not globally replace demo/simulated words, mutate visitor reasons or rewrite
+  persisted image alternatives merely to satisfy a text scan.
 
 ## Requirements *(mandatory)*
 
@@ -408,6 +461,33 @@ reset it and verify its restored baseline and the other environment's unchanged 
   outside state-card bounds. Provide a readable narrow-screen layout, keyboard operation,
   visible selection and both appearance themes.
 
+- **FR-042**: Landing and every customer/admin workspace route MUST expose one concise,
+  non-dismissible Demo identifier, including direct-entry and loading/error/empty/expiry
+  states. General scope explanations MUST NOT appear as a persistent warning strip or
+  repeated navigation/profile/order-detail disclaimers. A short landing sample-data
+  introduction and one general guide explanation MAY remain.
+- **FR-043**: Routine copy MUST be task-focused and retire the strings "Your own fictional
+  workspace.", "Original purchase prices in USD. All products and orders are fictional."
+  and "Demonstration only. No real refunds, shipments or pickups." Currency, amounts,
+  deadlines, quantities, customer names, canonical states/events and entered reasons
+  MUST preserve their meaning.
+- **FR-044**: Baseline FR-019/020/041 explanations MUST remain with their applicable
+  approval/receipt action or detail, including direct entry, in at most one consolidated
+  boundary block per region. Help alone MUST NOT replace contextual explanations.
+  No text may promise actual pickup, physical receipt, payment or refund.
+- **FR-045**: Copy/presentation changes MUST preserve accessible control/image descriptions,
+  actionable errors, reset loss/confirmation/irreversibility, temporary-data/expiry and
+  recovery messages. They MUST NOT add first-visit warnings, consent dialogs, dismissal
+  preferences or new navigation steps to replace removed repetition.
+- **FR-046**: All application routes MUST expose a consistent professional favicon aligned
+  with the existing parcel/return identity, legible at 16/32px against light/dark browser
+  appearance, with a browser-compatible raster fallback and no text-dependent identity.
+- **FR-047**: Administrator request-detail evidence MUST reuse customer-detail semantic
+  treatments: neutral original reason, red/error rejection reason, informational approved
+  instructions and green/success received confirmation. All five states MUST retain
+  explicit text labels, appropriate actions, readable full-width panels and existing
+  lifecycle meaning. Color alone MUST NOT communicate an outcome.
+
 ### State Transitions
 
 | Current state | Action and actor | Next state | Quantity effect | History event |
@@ -502,6 +582,24 @@ advanced analytics. Demo isolation is required despite the absence of real accou
 - **SC-014**: Every customer and administrator screen, system message, instruction,
   and seeded product description or reason is in English. USD prices and the configured
   calendar rules remain intact, and visitor-entered free text is displayed as entered.
+
+- **SC-016**: Landing and all inventoried workspace destinations, including direct links,
+  show one Demo identifier; the global warning strip and all three retired strings are
+  absent. Routine identity/navigation/order-price notes contain zero generic financial
+  or logistics disclaimers.
+- **SC-017**: Pending-admin, approved-customer, approved-admin and received detail scenarios
+  retain 100% of applicable baseline boundary information without opening help, with at
+  most one boundary block per action/detail region.
+- **SC-018**: The communication journey completes at 360/1280px in light/dark appearance
+  without lost controls, clipped text, horizontal overflow or additional acknowledgement;
+  reset/expiry remain clear and the lifecycle is unchanged.
+- **SC-019**: Landing and nested customer/admin routes deliver valid icon resources with
+  correct image types and no missing/conflicting icon links. The identity is visually
+  recognizable at 16/32px in light/dark browser appearance.
+- **SC-020**: Across all five states, both views show corresponding reason/outcome surfaces
+  with consistent semantic treatment and explicit labels. Multiline/long-text examples at
+  360/1280px in both themes have no clipped headings or horizontal overflow, and normal
+  text contrast meets the existing 4.5:1 target.
 
 ## Assumptions
 
@@ -605,3 +703,13 @@ not controls that create or change real demonstration requests.
 - **SC-015**: A visitor can open the guide in either role, understand all five states and
   four transitions, select each state by keyboard, retain role/profile context, and read
   all connector labels without card overlap or clipping at mobile and desktop widths.
+
+
+## Interface communication and detail refinement (2026-10-22)
+
+User Stories 10–12, FR-042–047 and SC-016–020 refine the existing MVP interface.
+They supersede older generic disclaimer placement and request-evidence styling only.
+No domain entity, state transition, API, schema, migration, role authorization or real
+financial/logistics operation is added. Preserve the approved Clarity identity, USD
+amounts, stored content and existing domain rules. Standalone personal learning material
+is excluded from version control; the shared SDD runbook remains project documentation.

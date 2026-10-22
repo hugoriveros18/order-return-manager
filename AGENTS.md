@@ -22,8 +22,8 @@ abstractions, extra services or new dependencies without a concrete need.
 - [README](README.md): runnable setup. The feature's `quickstart.md` and `validation.md`:
   verification scenarios, actual results and outstanding work.
 
-The existing MVP baseline is [001-manage-order-returns](specs/001-manage-order-returns/spec.md).
-The interface refinement is [002-refine-interface](specs/002-refine-interface/spec.md).
+The current feature is [001-manage-order-returns](specs/001-manage-order-returns/spec.md),
+including its interface refinements (FR-042–047, SC-016–020 and T117–T126).
 Use [the SDD runbook](docs/spec-driven-development.md) to explain request structure,
 phase commands, shell helpers and the decision to amend or create a feature package.
 Read only the additional sources needed for the task; do not preload every specification,
@@ -40,10 +40,17 @@ briefly state which artifacts will be created or updated before implementation.
 | Work                                                                   | Required approach                                                                                                                                                                               |
 | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | New independent capability                                             | Create `specs/<next-number>-<short-name>/`; define scenarios, requirements and acceptance criteria, then plan, generate tasks and implement.                                                    |
-| Extension to an existing capability                                    | Amend its spec/contract/plan or create a bounded follow-up package when independent review and acceptance are useful; explicitly reference what it supersedes. Preserve completed-task history. |
+| Extension or refinement to an existing capability                       | Update its existing spec/contract/plan and append tasks with fresh IDs. Preserve existing task IDs/completion and record which earlier presentation rules are superseded. Do not create a folder merely for another iteration or review. |
 | Bug against an existing requirement                                    | Reference that requirement, fix the defect and verify it. Do not rewrite correct requirements to justify the bug. Update affected task/validation records proportionally.                       |
 | Visual/copy refinement with unchanged domain behavior                  | Update the existing UI contract and applicable acceptance text; extend plan/tasks if the scope warrants it. Do not generate a whole new feature package for a small adjustment.                 |
 | Documentation-only change or internal refactor with unchanged behavior | Keep relevant documentation accurate and verify proportionally; do not invent a product requirement or a full SDD cycle.                                                                        |
+
+Create a new numbered specification only for a distinct capability with its own user
+goal, meaningful scope and independently testable acceptance. A new entity, API, branch,
+large diff or separate release alone is not the deciding factor. Explain the boundary
+before scaffolding; update affected existing specs too when a new feature changes them.
+For existing-scope changes, select the existing directory explicitly and edit artifacts
+proportionally; do not run a scaffolder that could overwrite the specification or task list.
 
 When asked how to add a feature, explain the runbook, offer its goal/users/current/expected/
 rules/acceptance/scope/delivery input template, identify the right package and distinguish
@@ -95,7 +102,7 @@ when refreshing how Spec Kit works; use this repository's constitution, specific
 and installed skill instructions for project decisions and version-specific execution.
 
 Installed Spec Kit scripts resolve the active feature from `SPECIFY_FEATURE_DIRECTORY`
-(for example, `specs/002-refine-interface`) or the ignored `.specify/feature.json` pointer.
+(for example, `specs/001-manage-order-returns`) or the ignored `.specify/feature.json` pointer.
 `SPECIFY_FEATURE` supplies branch context; it is not a substitute for the directory
 override. A fresh clone may have no pointer. Select from the request and `specs/`,
 rather than assuming `main`/`master` identifies a feature. Use the explicit directory

@@ -140,9 +140,19 @@ Convert source decimals exactly to cents; never multiply binary floating-point v
 without an exact decimal conversion. Currency is USD throughout the catalog, purchase
 price snapshots, contracts, and UI. Display two decimal places and an explicit USD label.
 Reuse SKUs and imagery, copy assets into public/products during implementation, and
-retain fictional-brand disclaimers. Seed two named fictitious profiles and six orders:
+retain the fictional brand identity, with notice placement governed by contracts/ui.md.
+Seed two named fictitious profiles and six orders:
 recent delivered multi-item, recent delivered multi-quantity, expired delivered,
 processing, shipped, and recent delivered for the second profile. Dates are relative to
 initialization/reset. Six example requests are seeded on provisioning/reset: two pending and one approved,
 received, rejected and cancelled. Each has valid items/quantities and complete history;
 committed examples leave units available for new requests. Both profiles have examples.
+
+
+## Interface-refinement data impact (2026-10-22)
+
+No schema, fields, relationships, enum values or migrations change. The model above
+remains authoritative. Icon assets and
+presentation copy are static resources. Existing imageAlt records and entered reasons
+remain untouched; presentation alternatives may use existing product names. No notice
+preferences or learning-guide progress are persisted.
