@@ -117,3 +117,45 @@ No production write, schema migration, dependency upgrade, commit, push or deplo
 was performed for this iteration. Domain unit/integration/contract suites were not
 rerun because domain/data/API code did not change. Baseline 001/T097 and T099 remain
 pending their own preview/operations/full-release acceptance requirements.
+
+## Feature convergence and workflow documentation
+
+Executed `$speckit-converge` for 002-refine-interface after implementation. The prerequisite
+helper resolved this package with --require-spec --require-tasks --include-tasks.
+No before/after convergence hooks are registered. This assessment reads current artifacts
+and implementation; it does not compare Git branches or infer completion from checkboxes.
+
+| Inventory | Checked |
+| --- | --- |
+| Functional requirements | 6 (FR-001–006) |
+| Success criteria | 5 (SC-001–005) |
+| User-story acceptance scenarios | 9 (US1: 4; US2: 2; US3: 3) |
+| Existing tasks | 10 (T001–T010, including acceptance/delivery evidence) |
+| Plan decisions | 8: stack, unchanged model/dependencies, identity/copy, icon conventions, semantic reuse, touch-point ordering, verification strategy, baseline release separation |
+| Constitutional principles | 5, assessed within the feature's affected scope |
+
+| Coverage | Current implementation / evidence |
+| --- | --- |
+| FR-001/002/004; US1/AC1–2,4 | Brand, root Suspense fallback, workspace layouts/shell, picker, orders, form, settings/reset and ErrorNotice retain identity, safe recovery and task-focused copy. |
+| FR-003; US1/AC3–4 | Pending admin approval note, shared role-aware ReturnInstructions and guide retain applicable approval/receipt/pickup boundaries. |
+| FR-005; US2/AC1–2 | Root SVG/ICO assets and built-in metadata conventions; favicon.spec.ts checks links, response types and 16/32/48px entries; earlier actual-size visual evidence remains applicable. |
+| FR-006; US3/AC1–3 | Admin/customer detail reuse neutral/error/soft/good surfaces, explicit labels and wrapping; admin-review.spec.ts covers all five states and both themes/views. |
+| SC-001–005; T007–T010 | Inspected acceptance tests plus the executed local lint/typecheck, 34 browser tests, build, responsive/visual and bounded Axe evidence recorded above. |
+
+Result: **converged**. Zero findings in each gap category (missing, partial, contradicts,
+unrequested) and each severity (critical, high, medium, low). No Convergence phase or
+tasks were appended. tasks.md remained byte-for-byte unchanged (SHA-256:
+2494acf95caf237b2d7d5bc3a1acae45aed773407984d1d927a50b88157bbd93).
+No further implement pass is needed for this feature's specified scope.
+
+Current source checks inspected strict TypeScript, shared layout/error/loading paths,
+contract copy, state/action branches, icon structure and semantic CSS. Calculated normal
+text contrast for the actual evidence/identity token pairs in both themes meets 4.5:1.
+Earlier executed runtime evidence was reviewed; application suites were not rerun during
+this source/artifact audit. This is not a new runtime test run, full baseline/domain
+audit or production acceptance. Baseline 001/T097 and T099 remain separate.
+
+After convergence, a separately requested documentation change updated AGENTS.md,
+docs/spec-driven-development.md and README.md to require post-implementation convergence
+in the default feature workflow and explain the remediation loop. The constitution,
+spec.md, plan.md, tasks.md and application code were not edited by this operation.

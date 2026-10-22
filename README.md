@@ -116,6 +116,8 @@ phase/command mapping, feature-package structure and actual repository helper sc
 The current interface follow-up is [002-refine-interface](specs/002-refine-interface/spec.md);
 its [tasks](specs/002-refine-interface/tasks.md) are implemented and locally verified.
 See its [validation record](specs/002-refine-interface/validation.md) for evidence and limits.
+After implementation and verification, run `$speckit-converge` for the selected feature
+before handoff. Implement any resulting tasks, verify and repeat until gaps are resolved.
 
 [AGENTS.md](AGENTS.md) contains repository instructions for coding agents, including the
 SDD workflow, domain invariants and scoped verification. For new features, update or

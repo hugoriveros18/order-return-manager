@@ -62,10 +62,19 @@ For feature work, use this sequence:
 6. Run checks appropriate to the change. Mark a task complete only when its own
    implementation and acceptance checks are complete. Record actual outcomes and limits
    in the feature's validation record; update setup/scenario documentation as needed.
+7. After implementation and verification, run `$speckit-converge` for that feature before
+   handoff/release. Assess current code against every requirement, acceptance scenario,
+   plan decision and task, including checked tasks, under the constitution. Passing tests
+   or checked boxes alone do not establish coverage. Converge may only append traceable
+   remediation tasks; it must not change code/spec/plan or rewrite existing tasks. If no
+   gaps remain, leave tasks.md byte-for-byte unchanged. Implement authorized remediation,
+   run affected checks and repeat convergence. Report any unresolved gaps explicitly;
+   convergence does not complete unrelated release tasks or authorize deployment.
 
 Use the repository's `.agents/skills/speckit-*/SKILL.md` workflows when available:
 `speckit-specify` → `speckit-clarify` when needed → `speckit-plan` → `speckit-tasks` →
-`speckit-analyze` → `speckit-implement`. Announce a skill on first use and follow its
+`speckit-analyze` → `speckit-implement` → verification → `speckit-converge`.
+Announce a skill on first use and follow its
 instructions. If a skill is unavailable, use this document and `.specify/templates/`
 to perform the equivalent artifact workflow; report the tooling limitation honestly.
 Follow only the authorized scope, not every unrelated open task in the repository.

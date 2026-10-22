@@ -61,16 +61,51 @@ replace a specification, human review, tests or acceptance evidence.
 | Tasks        | `$speckit-tasks`                                                          | Dependency-ordered tasks.md, requirement mapping and verification tasks                                             | setup-tasks.sh --json                                                        |
 | Analyze      | `$speckit-analyze`                                                        | Read-only consistency/coverage/constitution report; not automatic implementation                                    | check-prerequisites.sh --json --require-spec --require-tasks --include-tasks |
 | Implement    | `$speckit-implement`, naming the feature/tasks                            | Authorized code/artifact changes and executed verification; completed tasks checked only after their own acceptance | check-prerequisites.sh --json --require-tasks --include-tasks                |
+| Converge     | `$speckit-converge` after implementation and verification                 | Assess current code against spec/plan/all tasks and constitution; append remaining work or report convergence         | check-prerequisites.sh --json --require-spec --require-tasks --include-tasks |
 | Release      | Request a commit/deployment within the intended environment               | Reviewable changes, verified CI/build, controlled migrations and public smoke evidence                              | Repository npm commands and docs/deployment.md                               |
 
-Optional: `$speckit-checklist` reviews requirement quality for a chosen concern;
-`$speckit-converge` audits unbuilt scope; `$speckit-analyze` checks cross-artifact
-consistency. `$speckit-taskstoissues` is deprecated. None implies a release permission.
+Optional: `$speckit-checklist` reviews requirement quality for a chosen concern.
+`$speckit-analyze` checks cross-artifact consistency before implementation;
+`$speckit-converge` checks implementation coverage afterward and is part of this
+repository's default feature-delivery flow. `$speckit-taskstoissues` is deprecated.
+None implies release permission.
 
 "Plan this change and run the SDD planning phases automatically, excluding constitution"
 means specify → clarify as needed → plan → tasks → analyze. Implementation is a separate
 instruction. "Implement feature 002" authorizes its tasks; it does not automatically
 complete unrelated deployment tasks still pending in feature 001.
+
+## Close implementation with convergence
+
+Use this sequence after the planning phases:
+
+```text
+implement → run appropriate checks → converge → review/release
+                                      ↓ gaps
+                             implement appended tasks
+                                      ↓
+                             checks → converge again
+```
+
+Run converge only after tasks have been generated and implement has run on that task
+list. Name the feature explicitly, for example: `$speckit-converge for
+specs/002-refine-interface`. The shell prerequisite helper resolves paths; it does not
+perform the audit. The audit examines present code, not Git differences or history.
+Every task is assessed regardless of its checkbox, along with requirements, acceptance
+scenarios, plan decisions and governing constitutional constraints.
+
+Converge classifies gaps as missing, partial, contradicting or unrequested work, reports
+evidence and severity, and may only append a new numbered Convergence phase to tasks.md
+with new IDs and source references. It must not edit specifications/plans/application
+code, or rewrite existing tasks. If no actionable gaps remain, tasks.md stays byte-for-byte
+unchanged. Fixing findings belongs to a subsequent authorized implement pass; a conflict
+requiring a business decision still needs clarification.
+
+Tests establish behavior for executed scenarios; convergence checks coverage against
+intent. Neither substitutes for the other. A clean feature audit does not establish
+production acceptance or complete another feature's pending tasks. Record scope,
+findings/counts and evidence limits in the handoff; any separately requested documentation
+update happens after converge, outside its append-only task-writing contract.
 
 ## Select the feature explicitly
 
