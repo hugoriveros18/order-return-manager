@@ -367,3 +367,29 @@ public deployment or CI execution is claimed in this UI implementation.
   acceptance test does. This was a probe assumption, not an application change.
 - Production/preview database isolation, full release acceptance and scheduled-cleanup
   execution evidence remain outstanding. T097 and T099 remain unchecked.
+
+### Verified Node 22 production release
+
+- Commit `31ab787` triggered production deployment
+  `dpl_7oejJiMBF3Hvt84RSN4zLVC2sYVL` at
+  `https://order-return-manager-pactifhza.vercel.app`. Vercel reports READY and
+  `projectSettings.nodeVersion=22.x`. The public alias
+  `https://order-return-manager.vercel.app` resolves to this deployment.
+- The remote build passed dependency installation, Prisma generation and Next.js
+  production compilation. No complete local test-suite or remote CI success is claimed
+  in this release step. Installation logs reported dependency audit advisories; these
+  were not assessed or changed as part of database provisioning/runtime configuration.
+- The production browser smoke passed again after the Node 22 release: landing →
+  explicit demo start → seeded order → choose an available item → review/create →
+  pending detail → administrator approval in another tab → customer refresh/pickup
+  instructions → simulated receipt → customer refresh and three-event history.
+- A separate browser context started its own environment and was denied access to the
+  first context's return request. Only the probe's own fictional data was modified.
+- A direct Neon query corroborated the initial smoke request's `RECEIVED` state and
+  ordered `CREATED, APPROVED, RECEIVED` history. Unauthenticated requests to `/api/demo`
+  and `/api/internal/cleanup` returned 403 with `Cache-Control: private, no-store`.
+  This checks refusal only; it does not establish a successful scheduled cleanup run.
+- The private release connection file remains ignored by Git with owner-only mode 600.
+  Database credentials and visitor cookies were not written into these records.
+- T097/T099 remain open: configure an isolated Preview database/environment and verify
+  its public flows, scheduled-cleanup operation and remaining full release acceptance.

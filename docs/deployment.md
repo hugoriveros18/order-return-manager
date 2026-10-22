@@ -5,7 +5,9 @@
 Production is published at https://order-return-manager.vercel.app in the dedicated
 `order-return-manager` project (`prj_sNh27nTWJ16pd4f59eXtXCovrodz`), under team
 `team_76fOJXRi8kRxmJR6Dlwi2vS4` (`hugo-felipe-riveros-fajardos-projects`).
-The Vercel project setting is Node 22.x. The authenticated CLI is linked through the
+The Vercel project setting and verified production deployment use Node 22.x.
+The package engine is constrained to `^22.12.0`; an open lower-bound range would allow
+Vercel to select a newer major despite the dashboard setting. The authenticated CLI is linked through the
 ignored `.vercel/project.json`; the official Vercel MCP connection is also authenticated
 in the local Codex configuration. The earlier app-connector team-scope HTTP 403 is
 separate from those successful CLI/MCP logins. New MCP tools may require a session refresh.
@@ -103,5 +105,6 @@ refusals and cleanup backlog using operational logs without an analytics integra
 
 `.github/workflows/ci.yml` provisions PostgreSQL 17, validates strict types/lint, runs
 unit/integration/contract tests, executes Chromium desktop/mobile journeys and builds.
-CI configuration exists locally; no remote workflow run is claimed without a pushed
-repository and a verified GitHub Actions result.
+The workflow is versioned in the public GitHub repository and runs on pushes and pull
+requests. Check its actual GitHub Actions result before claiming CI success; a Vercel
+build or a production smoke test does not substitute for the complete CI suite.
