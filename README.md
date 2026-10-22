@@ -7,7 +7,7 @@ Customer and administrator views simulate roles without real accounts.
 
 ## Run locally
 
-Requires Node.js 22.12+ and npm. The checked-in lockfile pins the dependencies.
+Requires Node.js 22.x (22.12 or later) and npm. The checked-in lockfile pins the dependencies.
 
 ```bash
 npm ci

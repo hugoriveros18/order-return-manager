@@ -342,3 +342,28 @@ public deployment or CI execution is claimed in this UI implementation.
 - Verified the tracked change scope, remaining prototype references and whitespace.
   Application tests were not rerun: only retired prototypes and documentation changed;
   application code, dependencies, migrations and CI configuration are unchanged.
+
+## Neon production preparation and runtime correction — 2026-10-22
+
+- Verified both owner-supplied Neon endpoints identify the same database and role.
+  The public schema was initially empty; PostgreSQL reports 18.6 (local/CI uses 17).
+- Applied committed migration `202610210001_initial` with Prisma Migrate Deploy.
+  Output: `All migrations have been successfully applied.`
+- Ran the idempotent catalog seed. Output: `Seeded ten fictional USD products.`
+  A direct query confirmed one applied migration, ten USD products and zero demo
+  environments before browser verification. No local database was migrated or reset.
+- Vercel CLI 65.0.0 is authenticated as `hugoriveros18` and the existing project is
+  linked locally. The official shared Vercel MCP completed OAuth. The five production
+  variable names/types were verified without printing values; all are Secret.
+- Rebuilt deployment `dpl_EBKfjXLL44Wpm63frfTm5XRHqFQd` from commit `81e0419` and
+  verified its production alias serves HTTP 200. The deployment reached READY.
+- Despite the project dashboard setting 22.x, deployment metadata still reported 24.x:
+  the open `>=22.12.0` package engine allowed a newer major. Changed the engine and
+  lockfile root to `^22.12.0`, matching the existing Node 22 LTS implementation plan.
+  The npm 10 lockfile dry-run and whitespace checks passed; the local Node 24 engine
+  warning is expected after this correction. A subsequent deployed build must confirm 22.x.
+- The first browser probe reached Your orders but assumed ORM-1042 was selected.
+  The release probe now explicitly selects that order, as the existing full-demo
+  acceptance test does. This was a probe assumption, not an application change.
+- Production/preview database isolation, full release acceptance and scheduled-cleanup
+  execution evidence remain outstanding. T097 and T099 remain unchecked.

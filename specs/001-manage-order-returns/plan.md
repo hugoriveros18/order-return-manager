@@ -20,6 +20,7 @@ the application seed. Store amounts as integer cents; no currency conversion is 
 ## Technical Context
 
 **Language/Version**: Strict TypeScript 5.x on Node.js 22 LTS, minimum 22.12.
+The package engine range is `^22.12.0` so Vercel cannot select a later major version.
 
 **Primary Dependencies**: Next.js 16 App Router, React 19, Tailwind CSS 4, Prisma ORM 7
 with `@prisma/adapter-pg` and `pg`, Zod 4. Pin compatible patch versions and commit the

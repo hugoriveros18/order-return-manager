@@ -2,18 +2,25 @@
 
 ## Current remote status
 
-Remote deployment has not been performed. Read-only project discovery succeeded, but
-Vercel denied integration discovery with HTTP 403 for team
-`team_76fOJXRi8kRxmJR6Dlwi2vS4` (`hugo-felipe-riveros-fajardos-projects`). The connected
-service requested team-scope authorization; its suggested team-authorization helper is
-not exposed in this session. No local Vercel CLI credentials or linked project existed.
-No existing remote project, database or environment variable was modified. Neon plugin
-discovery found an available integration, but it is not installed or connected in this
-session; a connection is required before provisioning the managed database through it.
+Production is published at https://order-return-manager.vercel.app in the dedicated
+`order-return-manager` project (`prj_sNh27nTWJ16pd4f59eXtXCovrodz`), under team
+`team_76fOJXRi8kRxmJR6Dlwi2vS4` (`hugo-felipe-riveros-fajardos-projects`).
+The Vercel project setting is Node 22.x. The authenticated CLI is linked through the
+ignored `.vercel/project.json`; the official Vercel MCP connection is also authenticated
+in the local Codex configuration. The earlier app-connector team-scope HTTP 403 is
+separate from those successful CLI/MCP logins. New MCP tools may require a session refresh.
 
-T097 and the public-preview portion of T099 remain open until the intended team/project
-and managed database can be accessed. Do not deploy with the local PostgreSQL URLs or
-substitute another existing project. Never paste credentials into source or validation logs.
+The existing Neon project is `shiny-thunder-25324142`, organization
+`org-soft-hill-62855360`, with the owner-selected production branch. Its database reports
+PostgreSQL 18.6 in AWS us-east-2; local/CI coverage uses PostgreSQL 17. Both pooled and
+direct connections were verified against the same database and role. The committed
+`202610210001_initial` migration was applied and the ten-product USD catalog was seeded.
+No local development database was migrated or reset.
+
+Production configuration and public-browser verification evidence are recorded in
+`specs/001-manage-order-returns/validation.md`. T097 and T099 remain open until their
+remaining preview-isolation, operations and full release acceptance checks are complete.
+Never use local PostgreSQL URLs remotely or substitute an unrelated project/database.
 
 ## Required deployment configuration
 
@@ -31,7 +38,7 @@ or change that region deliberately to colocate both resources.
 | CRON_SECRET | Independent random secret for scheduled cleanup |
 
 `TEST_DATABASE_URL` is local/CI only, never the production data store. Store remote values
-as encrypted/sensitive variables in the selected Vercel environment. Production cookies
+as Secret variables in the selected Vercel environment. Production cookies
 are `__Host-orm-demo` and `__Host-orm-visitor`, Secure, HttpOnly, SameSite=Lax, Path=/.
 Preview deployments also run Next.js production mode and require HTTPS. Private API
 responses send no-store and mutations validate the configured same Origin.
@@ -39,6 +46,18 @@ responses send no-store and mutations validate the configured same Origin.
 An immutable preview URL must be known/configured as APP_ORIGIN before its writes are
 used. A stable preview alias with a matching configured origin is preferable. Do not
 weaken Origin validation to arbitrary host headers to accommodate dynamic preview URLs.
+
+## Private release access
+
+Production Secret values are not returned by `vercel env pull`; do not downgrade their
+type to make them downloadable. Obtain the intended branch's connections from Neon
+and inject them into the controlled migration/seed subprocess. An ignored private
+`.env.neon-release.local` can hold `DATABASE_URL` and `DATABASE_URL_UNPOOLED`; it is not
+a Next.js automatically loaded environment filename. Keep it restricted to its owner.
+Do not overwrite `.env.local`, reuse the release connections for local tests, print
+URLs, or commit credentials. The other required server keys must be available to the
+seed process for configuration validation; catalog seeding itself does not sign visitor
+cookies or create visitor environments.
 
 ## Release sequence
 
