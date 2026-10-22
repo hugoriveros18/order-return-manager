@@ -314,3 +314,15 @@ complete release/quickstart acceptance verification, including that public previ
 recorded evidence for FR-001–041/SC-001–015. Local checks do not substitute for those public
 checks. Their recorded remote-access prerequisites remain in docs/deployment.md; no new
 public deployment or CI execution is claimed in this UI implementation.
+
+## Initial GitHub publication and CI dependency correction — 2026-10-21
+
+- Published the project to the public `hugoriveros18/order-return-manager` repository
+  with `main` as the default branch. Authentication used Windows Git Credential Manager.
+- The first `Validate MVP` run failed at `npm ci`: npm 10 reported missing optional
+  `@emnapi/core` and `@emnapi/runtime` lockfile entries. No application checks ran.
+- Synchronized `package-lock.json` with npm 10, matching the Node 22 CI toolchain.
+  `npx --yes npm@10 ci --dry-run --ignore-scripts --no-audit --no-fund` passed locally.
+  This verifies dependency resolution; it is not a completed remote CI run.
+- The corrective push triggers another CI run. Public deployment and hosted release
+  validation remain pending; repository publication does not complete T097 or T099.
