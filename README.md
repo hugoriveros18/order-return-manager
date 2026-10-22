@@ -175,14 +175,6 @@ narrow screens use a vertical main route with explicitly labeled pending-only al
 The guide preserves the selected role/profile, supports keyboard and light/dark appearance,
 and does not create or update return requests.
 
-## Architecture learning guide
-
-Open [the interactive architecture guide](docs/architecture-guide/index.html) in a browser.
-It explains Next.js frontend/backend boundaries, Vercel versus Neon, request data flow,
-return states/quantities and anonymous environment isolation. It is a local learning
-resource under docs/, not an application route, and never calls application APIs.
-Its interactions use an illustrative in-memory model; they cannot modify a real demo.
-
 ## Interface refinement
 
 The shared header identifies the app with one compact Demo label. Routine screens focus

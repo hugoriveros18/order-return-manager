@@ -1,5 +1,14 @@
 # Planning and Documentation Validation
 
+## Repository scope correction
+
+The standalone architecture learning guide was personal reference material and was
+mistakenly included in commit f4f46f0. It is now excluded from version control and its
+README link is removed; the local files remain available to the project owner. Checks
+below that mention this guide are historical evidence, not required repository assets.
+The SDD runbook, feature artifacts, application changes and tests remain versioned.
+This documentation-only correction does not change application behavior.
+
 Date: 2026-10-22. Status: implemented and locally verified; production unchanged.
 The first sections record the earlier planning/documentation phase; execution evidence
 is recorded below. The new feature moves the previous uncommitted
