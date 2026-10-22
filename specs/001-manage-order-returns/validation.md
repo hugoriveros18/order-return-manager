@@ -238,11 +238,12 @@ The updated production app is running at http://127.0.0.1:3000. No backend rules
 
 ## Return-guide alternatives and bottom-right notifications — 2026-10-21
 
-Completed T114. Three English HTML alternatives are available in
-`design/returns-guide/`: A Flow map (recommended), B Guided journey and C Role lanes.
-They reuse the current brand typography and semantic light/dark colors and keep all
-five states and allowed transitions consistent with the spec. They remain review
-prototypes; no guide route has been integrated into the application.
+Completed T114. Three English HTML alternatives were produced: A Flow map
+(recommended), B Guided journey and C Role lanes. They reused the brand typography
+and semantic light/dark colors and kept all five states and allowed transitions
+consistent with the spec. At this stage they were review prototypes; the approved
+application implementation is recorded below. The retired prototypes remain in Git
+history.
 
 Executed checks:
 
@@ -265,8 +266,9 @@ Executed checks:
   the user's preference, retaining manual dismissal and expiry.
 - The HTML alternatives were opened in three visible Chromium tabs. The system's
   xdg-open had no default browser, so the installed Playwright Chromium was used.
-- Production application restarted at http://127.0.0.1:3000; prototype comparison is
-  served locally at http://127.0.0.1:4174/design/returns-guide/.
+- During this validation, the production application was restarted at port 3000
+  and the prototype comparison was served locally at port 4174. The retired preview
+  is no longer part of the working tree.
 
 
 ## Approved Flow map implementation — 2026-10-21
@@ -281,7 +283,8 @@ Replaced the prototype's scaled connector text with HTML labels in reserved CSS 
 tracks. The cancel transition and its full label occupy a separate lower row below the
 alternative-state cards. Cards have content-driven height and aligned internal content.
 A narrow container uses the vertical main route and explicit pending-only alternatives.
-The retained comparison prototype's lower connector spacing was also corrected.
+The comparison prototype's lower connector spacing was also corrected before its
+subsequent retirement.
 
 Executed checks:
 
@@ -326,3 +329,16 @@ public deployment or CI execution is claimed in this UI implementation.
   This verifies dependency resolution; it is not a completed remote CI run.
 - The corrective push triggers another CI run. Public deployment and hosted release
   validation remain pending; repository publication does not complete T097 or T099.
+
+## Repository housekeeping — 2026-10-21
+
+- Removed the superseded UI and return-guide HTML comparisons after both approved
+  designs were integrated into the application. Git history retains the alternatives;
+  the specification and UI contract retain the accepted decisions.
+- Removed the empty, unreferenced `.agents/sds.md` file and unused `.dockerignore`.
+  Compose uses the published PostgreSQL image and builds no application image.
+- Updated historical prototype references to describe their retirement. Preserved
+  SDD tooling, catalog sources, runtime assets, tests and local demonstration data.
+- Verified the tracked change scope, remaining prototype references and whitespace.
+  Application tests were not rerun: only retired prototypes and documentation changed;
+  application code, dependencies, migrations and CI configuration are unchanged.

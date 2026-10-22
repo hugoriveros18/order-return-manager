@@ -544,7 +544,9 @@ advanced analytics. Demo isolation is required despite the absence of real accou
 
 ## Approved UI revision — Clarity (2026-10-21)
 
-The owner selected alternative A, Clarity, from design/ui-review. This supersedes the
+The owner selected alternative A, Clarity, during the UI prototype review. The retired
+comparison remains in Git history; this specification and the UI contract define the
+approved interface. This supersedes the
 initial Order workspace visual implementation. Customer purchases use a persistent
 order navigator and a stable detail panel without a second identical desktop screen.
 Order selection reuses the loaded bounded order page; request status filters operate

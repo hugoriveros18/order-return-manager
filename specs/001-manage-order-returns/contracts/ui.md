@@ -1,6 +1,7 @@
 # UI Contract: Clarity
 
-Approved revision on 2026-10-21: alternative A in design/ui-review. The revision below
+Approved revision on 2026-10-21: alternative A, Clarity, from the UI prototype review.
+The retired comparison remains in Git history. The revision below
 supersedes conflicting visual/layout requirements in the original contract retained below.
 
 Light tokens: canvas #F3F6FA, surface #FFFFFF, ink #20374C, primary #245C99, muted

@@ -205,9 +205,9 @@ contains the implementation decisions, with no pending direction selection.
 
 ## Return-guide UI exploration (2026-10-21; selection pending)
 
-A local, dependency-free HTML comparison is available at
-`design/returns-guide/index.html`, using the current Clarity font, palette, semantic
-states and light/dark themes. It proposes a shared How returns work destination:
+A local, dependency-free HTML comparison was created using the Clarity font, palette,
+semantic states and light/dark themes. The retired prototype remains in Git history.
+It proposed a shared How returns work destination:
 
 - A — Flow map: all five states and four transitions at once, with optional state details.
   Recommended for the MVP because it gives a complete overview with minimal interaction.
@@ -217,9 +217,10 @@ states and light/dark themes. It proposes a shared How returns work destination:
   Clarifies responsibilities but requires more space and scanning.
 
 All alternatives explain eligibility, reserved quantities, terminal states and fictional
-pickup/receipt boundaries. These are design candidates, not an implemented application
-route or an approved change to the feature scope. The comparison controls and design
-notes belong only to the preview. The static preview does not call application APIs.
+pickup/receipt boundaries. At this exploration stage, these were design candidates
+rather than an approved application route. The comparison controls and design notes
+belonged only to the preview, which did not call application APIs. The selection and
+implementation recorded below supersede this exploration.
 
 Notification placement review: the earlier mobile failure involved immediately saving
 the same policy again while its confirmation covered the button. Generalizing that
